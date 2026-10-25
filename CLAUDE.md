@@ -22,7 +22,7 @@ Landing de una página para Andrés Mejía, arquitecto de software independiente
 10. `docs/reference/contexto-chatgpt.md`: contexto histórico de la versión anterior. **Donde contradiga a este fichero o a un ADR, manda este fichero.**
 11. `baseline/v1/`: la salida de la fase 1 congelada antes de migrar a Astro (M2). No se edita.
 
-Los puntos 2 a 6 llegan en M0 (bloque 2). Hasta entonces, las reglas de este fichero mandan.
+`specs/` se crea con el primer `/speckit-specify`.
 
 ## Stack y fases
 
@@ -44,7 +44,7 @@ npm run build:standalone     # además, dist-standalone/andres-mejia-landing.htm
 npm run serve                # dist/ en http://localhost:4173 con las cabeceras reales de customHttp.yml
 npm test                     # build + Playwright: consola/CSP, overflow, i18n, temas, pipeline, cifras, reduced motion, axe
 npm run check:deploy         # valida amplify.yml (obligatorio antes de tocarlo)
-npm run detect               # detector de Impeccable (desde M0, bloque 2)
+npm run detect               # tras build: detector de Impeccable 4.5.2 contra dist/ (avisos informativos)
 ```
 
 Si Playwright no tiene navegador instalado: `npx playwright install chromium`. En entornos con Chromium preinstalado, `PW_CHROMIUM_PATH=/ruta/chrome npm test`.
@@ -75,14 +75,14 @@ Si Playwright no tiene navegador instalado: `npx playwright install chromium`. E
   - Cada tarea de `specs/*/tasks.md` tiene su issue. Los bloques de PR están en la sección "Bloques de PR" de `tasks.md` y cada issue lleva la línea "PR: bloque N".
   - Rama `m1-b1-slug` (milestone, bloque y tema) desde `main`.
   - Un commit por tarea, con `Refs #N` en el cuerpo (`feat(hero): T012 …`).
-  - El PR del bloque lleva `Closes #N` de todos los issues que cubre y se mergea solo tras el OK de Andrés.
+  - El PR del bloque lleva `Closes #N` de todos los issues que cubre y se mergea con el CI en verde.
 - **Decisiones de Andrés:** las tareas con etiqueta `decision` (D1–D5 de `docs/BACKLOG.md`) las resuelve Andrés. Se le pregunta; no se resuelven por él.
 - **Ciclo de refinamiento (M1):**
   1. Cambio en `web/`.
   2. `npm test` y `npm run detect`.
   3. Capturas de escritorio (1440×900) y móvil (390×844), en ambos temas, con `playwright-cli` en `docs/reviews/<AAAA-MM-DD>-<tema>/`.
   4. Parada con resumen.
-  5. Tras el OK, PR y merge a `main`: Amplify lo publica solo en https://andres.tekhos.com.
+  5. PR y, con el CI en verde, merge a `main`: Amplify lo publica solo en https://andres.tekhos.com.
   6. Los comentarios de Andrés se convierten en issues con la etiqueta `refine`.
 
 ## Skills
@@ -93,7 +93,13 @@ Si Playwright no tiene navegador instalado: `npx playwright install chromium`. E
 - **Pruebas manuales en navegador:** `playwright-cli`.
 - **Revisiones:** `visual-critique` y `design-systems` de designer-skills, bajo demanda.
 - **Especificación:** Spec Kit (`/speckit-*`).
-- Instalación con `scripts/setup-skills.sh`; detalle y motivos en `docs/SKILLS.md` (M0, bloque 2).
+- Instalación con `scripts/setup-skills.sh`; detalle y motivos en `docs/SKILLS.md`.
+
+## Excepciones del detector
+
+- **Línea base (2026-10-25):** 221 avisos en la landing heredada (texto mono por debajo de 12 px, etiquetas sobre los H2, índices numerados, brillos de color, puntos que laten, barrido del pipeline y retícula del hero). Detalle en `DESIGN.md`.
+- **Ninguna excepción aceptada todavía.** Su revisión es tarea de M1: Andrés decide qué se corrige y qué se acepta, y lo aceptado se lista aquí con su motivo.
+- Mientras tanto, un cambio no puede añadir avisos nuevos respecto a la línea base.
 
 ## Reglas de contenido (no negociables)
 
@@ -123,7 +129,7 @@ Si Playwright no tiene navegador instalado: `npx playwright install chromium`. E
 ## Despliegue: AWS Amplify (ADR-002)
 
 - **App y destino:** región `eu-west-1`, cuenta `966378755474`, la misma que `me-beauty-site`. La app de Amplify **todavía no existe**: la crea Andrés en la consola (GitHub App). Cuando exista, anota aquí su `appId`. La rama `main` se publicará en https://andres.tekhos.com (y en `https://main.<appId>.amplifyapp.com`), con `noindex` hasta que Andrés decida `SITE_INDEXABLE=true`.
-- **Cada push a `main` despliega** una vez conectada la app. Nunca se hace push a `main` sin el OK de Andrés.
+- **Cada merge a `main` despliega.** Nunca se hace push directo a `main`: todo entra por PR con el CI en verde.
 - **El build se controla desde el repo:** `amplify.yml`, `customHttp.yml` y `scripts/build.mjs`. Los cambios en estos ficheros pasan por PR.
 - **`amplify.yml` solo contiene comandos simples o llamadas a scripts; nada de código en línea.** `npm run check:deploy` es obligatorio antes de cualquier push que toque `amplify.yml`.
 - **AWS CLI:**
@@ -150,7 +156,7 @@ Si Playwright no tiene navegador instalado: `npx playwright install chromium`. E
 - **Pull requests:**
   - Se mergean con merge commit (`gh pr merge --merge`), para conservar los commits firmados por tarea. Nunca squash ni rebase.
   - La descripción del PR: de 2 a 5 frases, sin "Generated with Claude Code" ni ninguna coautoría o mención de IA.
-  - Se abre el PR solo tras el OK de Andrés y no se mergea sin un segundo OK.
+  - Andrés autorizó el 2026-10-25 a hacer push, abrir PR y mergearlos sin parada previa, **siempre con el CI en verde**. Cada merge publica en https://andres.tekhos.com, así que tras mergear se le reporta qué se publicó.
 - **Dependencias y actions:** versiones con al menos 14 días desde su release; actions fijadas por SHA. Los PR de Dependabot se revisan con la misma regla y no se mergean el mismo día de la release.
-- **Parada obligatoria antes de push o PR:** reporta rama, ficheros, mensaje y validaciones, y espera el OK de Andrés.
+- **Nunca se mergea con el CI en rojo** ni con `npm test` fallando en local. Las decisiones D1–D5 y las excepciones del detector siguen requiriendo a Andrés aunque el merge sea automático.
 - **Si algo falla:** para y repórtalo. No hagas stash ni descartes cambios.

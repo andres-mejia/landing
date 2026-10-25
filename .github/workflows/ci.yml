@@ -44,6 +44,11 @@ jobs:
       - name: Tests (build y Playwright contra dist/ con la CSP real)
         run: npm test
 
+      # Informativo de momento: los avisos del detector no bloquean el PR (línea base en DESIGN.md).
+      - name: Detector de Impeccable
+        run: npm run detect
+        continue-on-error: true
+
       - name: Informe de Playwright
         if: failure()
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.1 (2026-04-10)
