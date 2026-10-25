@@ -1,4 +1,5 @@
 # AWS Amplify Hosting: build de la landing desde la raíz del repo (sin modo monorepo).
+# App d1hswm1m43q8p7 (eu-west-1). Rama main -> https://andres.tekhos.com
 # Contrato estable (ADR-002): `npm run build` deja el sitio en dist/.
 #   Fase 1: scripts/build.mjs copia web/ a dist/. Fase 2: astro build, con la misma salida.
 # Este fichero tiene prioridad sobre la configuración de build guardada en la consola.

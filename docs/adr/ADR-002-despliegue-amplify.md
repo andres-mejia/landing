@@ -1,6 +1,6 @@
 # ADR-002: Despliegue en AWS Amplify Hosting
 
-- **Estado:** aceptado (la app está pendiente de crear)
+- **Estado:** aceptado. App `landing-andres-mejia` (`d1hswm1m43q8p7`) creada el 2026-10-25 y `andres.tekhos.com` asociado a `main`.
 - **Fecha:** 2026-10-25
 
 ## Contexto
