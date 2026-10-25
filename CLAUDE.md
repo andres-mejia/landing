@@ -1,6 +1,6 @@
 # Andrés Mejía: landing personal
 
-Landing de una página para Andrés Mejía, arquitecto de software independiente con posicionamiento global. Bilingüe EN/ES, dos temas completos (oscuro por defecto, claro), movimiento que explica ingeniería y cifras verificables.
+Landing de una página para Andrés Mejía, arquitecto de software independiente con posicionamiento global. Se presenta como profesional independiente, no como fundador de Tekhos (ADR-005). Bilingüe EN/ES, dos temas completos (oscuro por defecto, claro), movimiento que explica ingeniería y cifras verificables.
 
 - **Repo:** `andres-mejia/landing` (público), rama por defecto `main`. Se creó vacío: el primer commit inicializa `main`; todo lo demás entra por PR.
 - **Remoto SSH local:** `github-andres:andres-mejia/landing.git`. El alias está en `~/.ssh/config`.
@@ -109,7 +109,7 @@ Si Playwright no tiene navegador instalado: `npx playwright install chromium`. E
 - **Vocabulario vetado** (ADR-001 de marca Tekhos): "fábrica" o "factoría de software" y "digital workforce" en copy visible. Se usa "pipeline" o "taller".
 - **Nunca uses la palabra "actualmente"** en textos de perfil.
 - **Copy:** EN británico, coherente con `og:locale en_GB`. ES de España, con tuteo e imperativo en las instrucciones ("Selecciona", "Desliza"). Sin rayas largas nuevas en el copy español.
-- **Nombres de organizaciones en texto, sin logos.** Distinguir cliente final, consultora, plataforma, producto propio y prueba de concepto. El criterio de nombrar o anonimizar clientes es la decisión D2 de Andrés.
+- **Nombres de organizaciones en texto, sin logos.** Distinguir cliente final, consultora, plataforma, producto propio y prueba de concepto. Los clientes se nombran, sin anonimizar (ADR-005).
 - **Sin botón de pausa.** `prefers-reduced-motion` se respeta sin controles visibles.
 - Sin formularios sin destino, contadores ficticios ni enlaces `#` que aparenten una acción.
 
