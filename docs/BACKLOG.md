@@ -16,7 +16,7 @@ Cada push a `main` se publica automáticamente en https://andres.tekhos.com con 
 | Milestone | Objetivo | Criterio de cierre |
 |---|---|---|
 | **M0 · Bootstrap y entorno dev** | Repo inicializado, base estática y CI (bloque 1); Spec Kit, skills, `PRODUCT.md`, `DESIGN.md`, `docs/SPEC.md` y constitución (bloque 2); app de Amplify creada por Andrés y `andres.tekhos.com` asociado | `npm test` verde contra `dist/`; `andres.tekhos.com` sirve la landing con `noindex` y la CSP real; spec, plan y tasks revisados; issues creados |
-| **M1 · Refinamiento sobre `web/`** | Decisiones de posicionamiento y copy (D1, D2), contacto (C1), verbos de resultado (C3), mapa tecnológico (C5) e imagen OG (T1) sobre la landing estática | Andrés da la landing por buena en dev; `npm test` verde e `impeccable detect` sin avisos no aceptados |
+| **M1 · Refinamiento sobre `web/`** | Contacto (C1), verbos de resultado (C3), mapa tecnológico (C5) e imagen OG (T1) sobre la landing estática | Andrés da la landing por buena en dev; `npm test` verde e `impeccable detect` sin avisos no aceptados |
 | **M2 · Migración a Astro** | ADR-004 (T6): `baseline/v1/` congelada, Astro estático, i18n por claves con EN en `/` y ES en `/es/`; la salida sigue en `dist/` | `npm run parity` con 0 diferencias por idioma y tema; los mismos tests en verde ampliados a las dos rutas; `amplify.yml` sin cambios |
 | **M3 · Calidad y rendimiento** | Fuentes WOFF2 (T2), retrato AVIF/WebP (T3), Lighthouse y Core Web Vitals (T4), Safari y Firefox (T5), JSON-LD de persona (T7), caché `immutable` en `/_astro/*`, 404 propia | Todos los gates en verde, con informe en `docs/reviews/` |
 | **M4 · Contenido real** | Cifras de resultado con dato y permiso (C2), totales reales (D4), BPM (D5), trabajo reciente (C4) | Cada cifra nueva con evidencia visible y validada en build; nada publicado sin el OK de Andrés |
@@ -43,8 +43,8 @@ Cada push a `main` se publica automáticamente en https://andres.tekhos.com con 
 
 | # | Pendiente | Prioridad | Milestone |
 |---|---|---|---|
-| D1 | Relación con Tekhos en el copy: página personal pura o página de fundador ("Founder & principal architect · Tekhos"). Afecta a "Independent software architect" y al footer. El dominio ya está decidido: `andres.tekhos.com`. | P1 | M1 |
-| D2 | Criterio de clientes: con nombre, anonimizados por sector o mixto. Riesgo de NDA en proyectos vía consultora. Mercedes-Benz es una PoC del porfolio de PFS: valorar retirarla. | P1 | M1 |
+| D1 | ~~Relación con Tekhos~~. Resuelta el 2026-10-25 (ADR-005): profesional independiente; Tekhos tendrá su propia landing. | — | — |
+| D2 | ~~Criterio de clientes~~. Resuelta el 2026-10-25 (ADR-005): los nombres no se anonimizan. | — | — |
 | D3 | ~~Dominio~~. Resuelta el 2026-10-25: esta landing en `andres.tekhos.com`; `tekhos.com` para la empresa. | — | — |
 | D4 | Totales reales de proyectos y clientes, si son mayores que los comprobables (16 y 18). Se publicarían como "40+ proyectos · 16 documentados". | P2 | M4 |
 | D5 | Herramientas BPM (Camunda, jBPM, Bizagi…): quinta cifra del stack y entrada en el panel tecnológico. | P2 | M4 |

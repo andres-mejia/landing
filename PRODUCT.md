@@ -23,7 +23,7 @@ Landing de una página de Andrés Mejía, arquitecto de software independiente. 
 
 ## Positioning
 
-Arquitectura con criterio y software que evoluciona. Más de 20 años diseñando, integrando y haciendo evolucionar plataformas para organizaciones internacionales, con trabajo práctico (diseño y código, no solo diagramas). La prueba son proyectos concretos en banca, seguros, comercio, aviación, sector público, IoT industrial, medios digitales y productos con IA. Se publica en `andres.tekhos.com`; la redacción de la relación con Tekhos (página personal o de fundador) es la decisión D1.
+Arquitectura con criterio y software que evoluciona. Más de 20 años diseñando, integrando y haciendo evolucionar plataformas para organizaciones internacionales, con trabajo práctico (diseño y código, no solo diagramas). La prueba son proyectos concretos en banca, seguros, comercio, aviación, sector público, IoT industrial, medios digitales y productos con IA. Se publica en `andres.tekhos.com` como página de un profesional independiente: no menciona Tekhos, que tendrá su propia landing (ADR-005).
 
 ## Operating Context
 
@@ -58,7 +58,7 @@ Arquitectura con criterio y software que evoluciona. Más de 20 años diseñando
 ## Product Principles
 
 1. Cada cifra se puede comprobar en la propia página.
-2. Evidencia antes que adjetivos: proyectos concretos, contexto identificado (cliente final, consultora, plataforma, producto propio o prueba de concepto).
+2. Evidencia antes que adjetivos: proyectos concretos con el nombre del cliente, sin anonimizar, y contexto identificado (cliente final, consultora, plataforma, producto propio o prueba de concepto).
 3. El movimiento explica ingeniería; nunca decora ni bloquea el contenido.
 4. Posicionamiento global: nunca se publica residencia ni ubicación personal.
 5. No es un CV interminable: se presenta lo esencial y el detalle se explora con filtros y desplegables.
