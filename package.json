@@ -1,0 +1,24 @@
+{
+  "name": "andres-mejia-landing",
+  "private": true,
+  "type": "module",
+  "description": "Landing personal de Andrés Mejía. Fase 1: HTML estático en web/ (build copia a dist/). Fase 2: Astro con la misma salida dist/. Ver docs/adr/.",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "build:standalone": "node scripts/build.mjs --standalone",
+    "serve": "node scripts/serve-static.mjs dist 4173",
+    "pretest": "npm run build",
+    "test": "playwright test",
+    "test:ui": "playwright test --ui",
+    "check:deploy": "node scripts/validate-amplify.mjs",
+    "check:node": "node scripts/check-node.mjs"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "4.13.0",
+    "@playwright/test": "1.64.0",
+    "yaml": "2.9.1"
+  },
+  "engines": {
+    "node": ">=22.12.0"
+  }
+}

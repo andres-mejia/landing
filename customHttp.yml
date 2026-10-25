@@ -1,0 +1,33 @@
+# Cabeceras HTTP de AWS Amplify Hosting (se aplican a todas las respuestas de la app).
+# CSP estricta: scripts, estilos, fuentes e imágenes propios. Sin scripts ni <style> en línea:
+# el tema se fija con web/js/theme-init.js. El JS solo toca estilos vía CSSOM (element.style), que la CSP permite.
+# Los tests (scripts/serve-static.mjs) aplican estas mismas cabeceras.
+customHeaders:
+  - pattern: '**/*'
+    headers:
+      - key: 'Strict-Transport-Security'
+        value: 'max-age=31536000; includeSubDomains'
+      - key: 'X-Content-Type-Options'
+        value: 'nosniff'
+      - key: 'X-Frame-Options'
+        value: 'DENY'
+      - key: 'Referrer-Policy'
+        value: 'strict-origin-when-cross-origin'
+      - key: 'Permissions-Policy'
+        value: 'camera=(), microphone=(), geolocation=(), payment=()'
+      - key: 'Content-Security-Policy'
+        value: "default-src 'self'; script-src 'self'; style-src 'self'; font-src 'self'; img-src 'self' data:; connect-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; object-src 'none'"
+  # Fase 1 sin hash en los nombres: caché corta para que cada despliegue se vea al momento.
+  - pattern: 'css/*'
+    headers:
+      - key: 'Cache-Control'
+        value: 'public, max-age=300, must-revalidate'
+  - pattern: 'js/*'
+    headers:
+      - key: 'Cache-Control'
+        value: 'public, max-age=300, must-revalidate'
+  # Fuentes y retrato no cambian de contenido con la misma URL (el retrato está fijado por hash en el build).
+  - pattern: 'assets/*'
+    headers:
+      - key: 'Cache-Control'
+        value: 'public, max-age=2592000'
