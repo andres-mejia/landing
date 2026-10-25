@@ -128,7 +128,8 @@ Si Playwright no tiene navegador instalado: `npx playwright install chromium`. E
 
 ## Despliegue: AWS Amplify (ADR-002)
 
-- **App y destino:** región `eu-west-1`, cuenta `966378755474`, la misma que `me-beauty-site`. La app de Amplify **todavía no existe**: la crea Andrés en la consola (GitHub App). Cuando exista, anota aquí su `appId`. La rama `main` se publicará en https://andres.tekhos.com (y en `https://main.<appId>.amplifyapp.com`), con `noindex` hasta que Andrés decida `SITE_INDEXABLE=true`.
+- **App y destino:** app `landing-andres-mejia` (`d1hswm1m43q8p7`), región `eu-west-1`, cuenta `966378755474`, la misma que `me-beauty-site`. Rama `main` publicada en https://andres.tekhos.com (y en https://main.d1hswm1m43q8p7.amplifyapp.com), con `noindex` hasta que Andrés decida `SITE_INDEXABLE=true`.
+- **Variables de la rama `main`:** `SITE_URL=https://andres.tekhos.com`. `SITE_INDEXABLE` no está definida.
 - **Cada merge a `main` despliega.** Nunca se hace push directo a `main`: todo entra por PR con el CI en verde.
 - **El build se controla desde el repo:** `amplify.yml`, `customHttp.yml` y `scripts/build.mjs`. Los cambios en estos ficheros pasan por PR.
 - **`amplify.yml` solo contiene comandos simples o llamadas a scripts; nada de código en línea.** `npm run check:deploy` es obligatorio antes de cualquier push que toque `amplify.yml`.
