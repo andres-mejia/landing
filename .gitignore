@@ -7,3 +7,10 @@ test-results/
 .DS_Store
 *.log
 .env*
+# Impeccable: estado local, binario del motor (lo descarga scripts/setup-skills.sh) y hooks locales
+.impeccable/questions/
+.impeccable/live/
+.claude/skills/impeccable/scripts/bin/
+.claude/settings.local.json
+# Salida de playwright-cli (puede contener credenciales)
+.playwright-cli/
