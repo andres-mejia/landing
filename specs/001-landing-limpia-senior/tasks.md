@@ -33,7 +33,8 @@ description: "Tareas de la spec 001: landing más limpia y senior"
 | US4 · Proyectos destacados (P2) | T010 a T012 | 3 |
 | US5 · Contacto (P2) | T013 | 4 |
 | Fase final · Pulido | T014 a T017 | 4 |
-| **Total** | | **17** |
+| US1 · Mapa de países (P1, añadido el 2026-10-26) | T018 | 5 |
+| **Total** | | **18** |
 
 ## Bloques de PR
 
@@ -43,6 +44,7 @@ description: "Tareas de la spec 001: landing más limpia y senior"
 | 2 | T007 a T009 | `m1-b2-trayectoria` | Sección de liderazgo y trayectoria; "Sobre mí" y método condensados |
 | 3 | T010 a T012 | `m1-b3-experiencia` | 6 proyectos destacados por sector, verbos de resultado, etiquetas reducidas |
 | 4 | T013 a T017 | `m1-b4-contacto-cierre` | Correo de contacto, cabeceras de sección limpias, presupuesto de texto y cierre |
+| 5 | T018 | `m1-b5-mapa` | Mapa global de puntos con un punto vivo por país de clientes y equipos |
 
 ---
 
@@ -68,6 +70,8 @@ Sin tareas: el proyecto, el build y los tests ya existen (M0).
 **Independent Test**: la banda muestra 15, 17, 14 y 8; cada cifra con desglose abre su evidencia; los países por región suman 14.
 
 - [ ] T003 [US1] Reducir la banda a 4 cifras retirando `data-kpi="ecosystems"` y `data-kpi="clouds"`, ajustar la rejilla de `.kpi-grid` a 4 columnas (2 en móvil) con tokens existentes, retirar sus claves de traducción y actualizar el test de cifras a `['15', '17', '14', '8']`, en web/index.html, web/css/site.css, web/js/translations.js y tests/site.spec.ts (FR-005)
+
+- [ ] T018 [US1] Mapa global de puntos generado una vez desde Natural Earth (world-atlas, ISC) en web/assets/world-dots.svg con scripts/build-map.mjs, un punto vivo por país a escala de país sobre `.countries`, la lista por región como leyenda (contrato del build intacto), pulso con `transform`/`opacity` solo en pantalla, estático con movimiento reducido, en web/index.html, web/css/site.css, web/js/app.js, scripts/build-map.mjs y tests/site.spec.ts (FR-006b)
 
 **Checkpoint**: US1 verificable por sí sola.
 
