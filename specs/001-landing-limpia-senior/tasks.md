@@ -55,7 +55,7 @@ Sin tareas: el proyecto, el build y los tests ya existen (M0).
 ## Phase 2: Foundational (bloquea US1 y US2)
 
 - [ ] T001 Enmienda de ADR-003 y validación de cifras por lista explícita de KPIs (`engagements`, `organisations`, `countries`, `industries`) en lugar de "al menos 9 cifras desglosadas", y validación de "exactamente 6 `article.engagement[data-featured]` y son las 6 primeras" activable cuando existan, en scripts/build.mjs y docs/adr/ADR-003-cifras-verificables.md (research R3, contrato del DOM)
-- [ ] T002 [P] Test de presupuesto de texto que cuenta las palabras visibles en `<main>` en EN sin desplegar y registra el valor; el umbral "≤ 1.500" (SC-001) se activa en T015, en tests/site.spec.ts (research R7)
+- [ ] T002 [P] Test de presupuesto de texto que cuenta las palabras de `<main>` en EN (total y visibles sin desplegar) y registra los valores; los umbrales "≤ 1.200 en total y ≤ 1.000 visibles" (SC-001) se activan en T015, en tests/site.spec.ts (research R7)
 
 **Checkpoint**: el build valida la banda nueva y el presupuesto se mide.
 
@@ -128,7 +128,7 @@ Sin tareas: el proyecto, el build y los tests ya existen (M0).
 ## Phase 8: Polish & Cross-Cutting Concerns
 
 - [ ] T014 [P] Cabeceras de sección: dejar solo el índice (`02 /`…) sobre los H2 y retirar la frase, conservar la del hero, subir a 12 px el texto mono de las zonas tocadas y condensar las especialidades a una línea por resumen, en web/index.html, web/css/site.css y web/js/translations.js (design-brief)
-- [ ] T015 Activar el umbral "≤ 1.500 palabras" del test de presupuesto y recortar copy hasta cumplirlo sin perder evidencia, en tests/site.spec.ts, web/index.html y web/js/translations.js (SC-001)
+- [ ] T015 Activar los umbrales "≤ 1.200 palabras en total y ≤ 1.000 visibles" del test de presupuesto y recortar copy hasta cumplirlo sin perder evidencia, en tests/site.spec.ts, web/index.html y web/js/translations.js (SC-001)
 - [ ] T016 [P] Actualizar docs/SPEC.md (arquitectura de página), DESIGN.md (línea base del detector tras el cambio) y CLAUDE.md (ganchos nuevos), en docs/SPEC.md, DESIGN.md y CLAUDE.md
 - [ ] T017 Verificación del cierre: `npm test`, `npm run detect` sin superar la línea base, capturas de escritorio (1440×900) y móvil (390×844) en los dos temas en docs/reviews/<AAAA-MM-DD>-landing-limpia/ y parada de revisión con Andrés (quickstart)
 

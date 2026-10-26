@@ -26,7 +26,7 @@ Refinar la landing estática de la fase 1 para decir menos con más intención. 
 
 **Constraints**: CSP `'self'` sin estilos ni scripts en línea; AA en dos temas; íntegra sin JS y con movimiento reducido; EN/ES por cadenas inglesas; retrato con hash fijo; sin residencia; cifras verificables.
 
-**Scale/Scope**: 1 página, 11 secciones tras el cambio; ~1.500 palabras visibles en EN (de ~2.340); 30 tecnologías nombradas en capacidades (de 129); 15 tarjetas de proyecto, 6 destacadas.
+**Scale/Scope**: 1 página, 11 secciones tras el cambio; ≤ 1.200 palabras en EN en total (de 1.808) y ≤ 1.000 visibles (de 1.153); 30 tecnologías nombradas en capacidades (de 129); 15 tarjetas de proyecto, 6 destacadas.
 
 ## Constitution Check
 

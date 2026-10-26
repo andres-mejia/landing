@@ -242,3 +242,28 @@ test.describe('accesibilidad (axe)', () => {
     });
   }
 });
+
+test.describe('presupuesto de texto', () => {
+  test.use({ reducedMotion: 'reduce' });
+  // SC-001 de la spec 001: palabras de <main> en inglés (total, incluido lo plegable); se anotan también las visibles sin desplegar.
+  // El umbral se activa al cerrar la spec (T015); hasta entonces solo se mide y se anota.
+  const WORD_BUDGET: { total: number; visible: number } | null = null;
+  test('palabras de la página en inglés', async ({ page }) => {
+    await page.setViewportSize({ width: 1440, height: 900 });
+    await open(page);
+    // Total: todo el texto de <main>, incluido lo plegado (desplegables, tarjetas ocultas), sin SVG ni copias visuales.
+    const { visible, total } = await page.evaluate(() => {
+      const count = (text: string) => (text.match(/[A-Za-zÀ-ÿ0-9][\w'’./+-]*/g) ?? []).length;
+      const main = document.querySelector('main') as HTMLElement;
+      const clone = main.cloneNode(true) as HTMLElement;
+      clone.querySelectorAll('svg,script,[data-i18n-skip],.decode-overlay').forEach((el) => el.remove());
+      return { visible: count(main.innerText), total: count(clone.textContent ?? '') };
+    });
+    test.info().annotations.push({ type: 'palabras', description: `visibles ${visible} · total ${total}` });
+    console.log(`palabras en <main>: visibles ${visible} · total ${total}`);
+    if (WORD_BUDGET !== null) {
+      expect(total).toBeLessThanOrEqual(WORD_BUDGET.total);
+      expect(visible).toBeLessThanOrEqual(WORD_BUDGET.visible);
+    }
+  });
+});
