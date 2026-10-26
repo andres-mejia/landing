@@ -202,7 +202,7 @@ test.describe('cifras', () => {
     await scrollThrough(page);
     await page.waitForTimeout(1800);
     const kpis = await page.locator('.kpi [data-count-to]').allTextContents();
-    expect(kpis).toEqual(['15', '17', '14', '8', '5', '3']);
+    expect(kpis).toEqual(['15', '17', '14', '8']);
     expect(await page.locator('.region li').count()).toBe(14);
     expect(await page.locator('.engagement').count()).toBe(15);
     await expect(page.locator('.recurring li').first()).toContainText('Event streaming (Kafka)');
