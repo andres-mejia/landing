@@ -1,10 +1,10 @@
 # Andrés Mejía: landing personal
 
-Landing de una página para Andrés Mejía, arquitecto de software independiente con posicionamiento global. Se presenta como profesional independiente, no como fundador de Tekhos (ADR-005). Bilingüe EN/ES, dos temas completos (oscuro por defecto, claro), movimiento que explica ingeniería y cifras verificables.
+Landing de una página para Andrés Mejía, arquitecto de software independiente con posicionamiento global. Se presenta como profesional independiente; Tekhos y Team Cloud aparecen como trayectoria empresarial, no como titular (ADR-005). Bilingüe EN/ES, dos temas completos (oscuro por defecto, claro), movimiento que explica ingeniería y cifras verificables.
 
 - **Repo:** `andres-mejia/landing` (público), rama por defecto `main`. Se creó vacío: el primer commit inicializa `main`; todo lo demás entra por PR.
 - **Remoto SSH local:** `github-andres:andres-mejia/landing.git`. El alias está en `~/.ssh/config`.
-- **Dominio:** esta landing se publica en `andres.tekhos.com`. `tekhos.com` es la landing de la empresa (Tekhos) y vive en otro repo: desde aquí no se tocan sus registros DNS salvo los que cree Amplify para `andres`.
+- **Dominio:** esta landing se publica en `andres.tekhos.com`. `tekhos.com` es la landing de la empresa (Tekhos) y vive en otro repo: desde aquí solo se tocan sus registros DNS de `andres` (Amplify) y los de correo de `infra/email/` (ADR-006).
 - **Proyecto de referencia:** `andres-mejia/me-beauty-site`. Todas las landings siguen su mismo flujo (Spec Kit, Impeccable, milestones, Amplify, git). Ante la duda de cómo se hace algo aquí, mira cómo se hizo allí.
 - **El proyecto vive en la raíz del repo.**
 
@@ -142,7 +142,16 @@ Si Playwright no tiene navegador instalado: `npx playwright install chromium`. E
     - borrar recursos;
     - tocar recursos que no son de esta landing (las apps de me-beauty, fintrack o docufly; la raíz de `tekhos.com` y otras zonas alojadas).
   - No leas, imprimas ni copies secretos ni tokens. La conexión de Amplify con GitHub la autoriza Andrés en la consola; no se crean ni se piden tokens personales.
-- **Registros DNS:** los de validación de ACM no se borran nunca. En la zona `tekhos.com` solo se tocan los registros de `andres`.
+- **Registros DNS:** los de validación de ACM no se borran nunca. En la zona `tekhos.com` se tocan los registros de `andres` (Amplify) y los de correo, que gestionan las pilas de `infra/email/` y no se editan a mano.
+
+## Correo de tekhos.com (ADR-006)
+
+- **Recepción:** comodín `*@tekhos.com` en SES us-east-1 (pila `tekhos-email-receiving`, conjunto `tekhos-inbound`): S3 y Lambda `tekhos-email-forwarder` que reenvía al Gmail personal con `Reply-To` del remitente.
+- **Envío:** identidad `tekhos.com` en SES eu-west-1 (pila `tekhos-email-sending`) con DKIM, MAIL FROM `mail.tekhos.com`, SPF y DMARC `p=none`. SMTP para "Enviar como" con el usuario `tekhos-ses-smtp`; credencial en Secrets Manager `tekhos/ses-smtp`.
+- **Comandos:**
+  - `FORWARD_TO=… scripts/deploy-email.sh` despliega o actualiza las dos pilas (antes, `node scripts/build-email-stack.mjs` si cambia `forwarder.py`).
+  - `python3 scripts/ses-smtp-secret.py` crea o rota la credencial SMTP; `--test <correo>` envía una prueba. Nunca imprimen el secreto.
+- **No toques `fenora-dev-rules`** (eu-west-1): es el conjunto activo de FENORA.
 
 ## Git (regla dura)
 

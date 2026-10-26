@@ -1,0 +1,194 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: Tekhos, recepcion de correo con SES en us-east-1 (conjunto de reglas propio, independiente de FENORA). Comodin *@tekhos.com que guarda en S3 y reenvia al buzon personal con una Lambda (ADR-006).
+# Plantilla fuente: infra/email/receiving.yml se genera con node scripts/build-email-stack.mjs (inserta forwarder.py).
+
+Parameters:
+  Domain:
+    Type: String
+    Default: tekhos.com
+  HostedZoneId:
+    Type: String
+    Default: Z025408038NPHX3W382AH
+  ForwardTo:
+    Type: String
+    Description: Buzon personal que recibe el reenvio
+  SendingRegion:
+    Type: String
+    Default: eu-west-1
+    Description: Region de SES en produccion desde la que se reenvia
+  RuleSetName:
+    Type: String
+    Default: tekhos-inbound
+
+Resources:
+  # SES solo recibe para dominios verificados en esta region.
+  Identity:
+    Type: AWS::SES::EmailIdentity
+    Properties:
+      EmailIdentity: !Ref Domain
+  Dkim1:
+    Type: AWS::Route53::RecordSet
+    Properties:
+      HostedZoneId: !Ref HostedZoneId
+      Name: !GetAtt Identity.DkimDNSTokenName1
+      Type: CNAME
+      TTL: '1800'
+      ResourceRecords: [!GetAtt Identity.DkimDNSTokenValue1]
+  Dkim2:
+    Type: AWS::Route53::RecordSet
+    Properties:
+      HostedZoneId: !Ref HostedZoneId
+      Name: !GetAtt Identity.DkimDNSTokenName2
+      Type: CNAME
+      TTL: '1800'
+      ResourceRecords: [!GetAtt Identity.DkimDNSTokenValue2]
+  Dkim3:
+    Type: AWS::Route53::RecordSet
+    Properties:
+      HostedZoneId: !Ref HostedZoneId
+      Name: !GetAtt Identity.DkimDNSTokenName3
+      Type: CNAME
+      TTL: '1800'
+      ResourceRecords: [!GetAtt Identity.DkimDNSTokenValue3]
+
+  Mx:
+    Type: AWS::Route53::RecordSet
+    Properties:
+      HostedZoneId: !Ref HostedZoneId
+      Name: !Ref Domain
+      Type: MX
+      TTL: '300'
+      ResourceRecords: [!Sub '10 inbound-smtp.${AWS::Region}.amazonaws.com']
+
+  Bucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Sub tekhos-inbound-mail-${AWS::AccountId}
+      BucketEncryption:
+        ServerSideEncryptionConfiguration:
+          - ServerSideEncryptionByDefault: {SSEAlgorithm: AES256}
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: true
+        BlockPublicPolicy: true
+        IgnorePublicAcls: true
+        RestrictPublicBuckets: true
+      OwnershipControls:
+        Rules: [{ObjectOwnership: BucketOwnerEnforced}]
+      LifecycleConfiguration:
+        Rules:
+          - Id: expire-inbound
+            Status: Enabled
+            Prefix: inbound/
+            ExpirationInDays: 90
+  BucketPolicy:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket: !Ref Bucket
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Sid: AllowSesPut
+            Effect: Allow
+            Principal: {Service: ses.amazonaws.com}
+            Action: s3:PutObject
+            Resource: !Sub ${Bucket.Arn}/inbound/*
+            Condition:
+              StringEquals: {AWS:SourceAccount: !Ref AWS::AccountId}
+              ArnLike: {AWS:SourceArn: !Sub 'arn:aws:ses:${AWS::Region}:${AWS::AccountId}:receipt-rule-set/${RuleSetName}:receipt-rule/*'}
+          - Sid: DenyInsecureTransport
+            Effect: Deny
+            Principal: '*'
+            Action: 's3:*'
+            Resource: [!GetAtt Bucket.Arn, !Sub '${Bucket.Arn}/*']
+            Condition:
+              Bool: {aws:SecureTransport: 'false'}
+
+  ForwarderRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal: {Service: lambda.amazonaws.com}
+            Action: sts:AssumeRole
+      ManagedPolicyArns: [arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole]
+      Policies:
+        - PolicyName: forward
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action: s3:GetObject
+                Resource: !Sub ${Bucket.Arn}/inbound/*
+              - Effect: Allow
+                Action: ses:SendRawEmail
+                Resource: !Sub arn:aws:ses:${SendingRegion}:${AWS::AccountId}:identity/*
+                Condition:
+                  StringLike: {ses:FromAddress: !Sub '*@${Domain}'}
+
+  ForwarderLogs:
+    Type: AWS::Logs::LogGroup
+    Properties:
+      LogGroupName: /aws/lambda/tekhos-email-forwarder
+      RetentionInDays: 30
+
+  Forwarder:
+    Type: AWS::Lambda::Function
+    DependsOn: ForwarderLogs
+    Properties:
+      FunctionName: tekhos-email-forwarder
+      Runtime: python3.12
+      Handler: index.handler
+      Timeout: 30
+      MemorySize: 256
+      Role: !GetAtt ForwarderRole.Arn
+      Environment:
+        Variables:
+          BUCKET: !Ref Bucket
+          PREFIX: inbound/
+          FORWARD_TO: !Ref ForwardTo
+          DOMAIN: !Ref Domain
+          SES_REGION: !Ref SendingRegion
+      Code:
+        ZipFile: |
+__HANDLER__
+
+  ForwarderPermission:
+    Type: AWS::Lambda::Permission
+    Properties:
+      FunctionName: !Ref Forwarder
+      Action: lambda:InvokeFunction
+      Principal: ses.amazonaws.com
+      SourceAccount: !Ref AWS::AccountId
+      SourceArn: !Sub 'arn:aws:ses:${AWS::Region}:${AWS::AccountId}:receipt-rule-set/${RuleSetName}:receipt-rule/*'
+
+  RuleSet:
+    Type: AWS::SES::ReceiptRuleSet
+    Properties:
+      RuleSetName: !Ref RuleSetName
+
+  CatchAll:
+    Type: AWS::SES::ReceiptRule
+    DependsOn: [BucketPolicy, ForwarderPermission]
+    Properties:
+      RuleSetName: !Ref RuleSet
+      Rule:
+        Name: catch-all-tekhos
+        Enabled: true
+        ScanEnabled: true
+        TlsPolicy: Optional
+        Recipients: [!Ref Domain]
+        Actions:
+          - S3Action:
+              BucketName: !Ref Bucket
+              ObjectKeyPrefix: inbound/
+          - LambdaAction:
+              FunctionArn: !GetAtt Forwarder.Arn
+              InvocationType: Event
+
+Outputs:
+  RuleSetName:
+    Value: !Ref RuleSet
+  BucketName:
+    Value: !Ref Bucket
