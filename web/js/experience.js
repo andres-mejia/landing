@@ -82,4 +82,26 @@
  renderProjects(false);
 
  document.querySelectorAll('.region li').forEach((li,i)=>li.style.setProperty('--i',String(i)));
+
+ /* World map: one pin per country, in the same order as the legend. Pins pulse only while the map is on screen. */
+ const map=document.querySelector('.world-map');
+ if(map){
+  const pins=[...map.querySelectorAll('.pin')];
+  const countries=[...document.querySelectorAll('.region li')];
+  pins.forEach((pin,i)=>pin.style.setProperty('--i',String(i)));
+  countries.forEach((li,i)=>{
+   const pin=pins[i];
+   if(!pin)return;
+   const on=()=>{pin.classList.add('is-active');li.classList.add('is-active')};
+   const off=()=>{pin.classList.remove('is-active');li.classList.remove('is-active')};
+   li.addEventListener('pointerenter',on);li.addEventListener('pointerleave',off);
+  });
+  if(!reducedMotion.matches&&'IntersectionObserver' in window){
+   let onScreen=false;
+   const sync=()=>map.classList.toggle('is-live',onScreen&&!document.hidden&&!reducedMotion.matches);
+   new IntersectionObserver(entries=>{onScreen=entries[0].isIntersecting;sync()}).observe(map);
+   document.addEventListener('visibilitychange',sync);
+   reducedMotion.addEventListener?.('change',sync);
+  }
+ }
 })();

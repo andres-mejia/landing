@@ -223,6 +223,23 @@ test.describe('cifras', () => {
   });
 });
 
+test.describe('mapa de países', () => {
+  test('un punto por país, en el orden de la leyenda, y vivo solo en pantalla', async ({ page }) => {
+    await page.setViewportSize({ width: 1440, height: 900 });
+    await open(page);
+    const map = page.locator('.world-map');
+    await expect(map).toHaveAttribute('aria-hidden', 'true');
+    await expect(map.locator('.pin')).toHaveCount(14);
+    await expect(page.locator('.region li')).toHaveCount(14);
+    await map.scrollIntoViewIfNeeded();
+    await expect(map).toHaveClass(/is-live/);
+    await page.locator('.region li').first().hover();
+    await expect(map.locator('.pin').first()).toHaveClass(/is-active/);
+    await page.evaluate(() => window.scrollTo(0, document.documentElement.scrollHeight));
+    await expect(map).not.toHaveClass(/is-live/);
+  });
+});
+
 test.describe('movimiento reducido', () => {
   test.use({ reducedMotion: 'reduce' });
   test('todo el contenido visible y el pipeline detenido', async ({ page }) => {
@@ -232,6 +249,8 @@ test.describe('movimiento reducido', () => {
     await expect(page.locator('#factory')).toHaveAttribute('data-factory-running', 'false');
     const transform = await page.locator('.hero h1 .line > span').first().evaluate((el) => getComputedStyle(el).transform);
     expect(transform).toBe('none');
+    await page.locator('.world-map').scrollIntoViewIfNeeded();
+    await expect(page.locator('.world-map')).not.toHaveClass(/is-live/);
   });
 });
 

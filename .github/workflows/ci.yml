@@ -44,6 +44,9 @@ jobs:
       - name: Plantilla de correo al día
         run: npm run check:email
 
+      - name: Mapa de puntos al día
+        run: npm run check:map
+
       - name: Tests (build y Playwright contra dist/ con la CSP real)
         run: npm test
 

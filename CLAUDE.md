@@ -45,6 +45,7 @@ npm run serve                # dist/ en http://localhost:4173 con las cabeceras 
 npm test                     # build + Playwright: consola/CSP, overflow, i18n, temas, pipeline, cifras, reduced motion, axe
 npm run check:deploy         # valida amplify.yml (obligatorio antes de tocarlo)
 npm run detect               # tras build: detector de Impeccable 4.5.2 contra dist/ (avisos informativos)
+npm run build:map            # regenera web/assets/world-dots.svg (Natural Earth vía world-atlas, ISC); check:map lo verifica en el CI
 ```
 
 Si Playwright no tiene navegador instalado: `npx playwright install chromium`. En entornos con Chromium preinstalado, `PW_CHROMIUM_PATH=/ruta/chrome npm test`.

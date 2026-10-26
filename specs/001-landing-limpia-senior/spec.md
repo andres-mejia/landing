@@ -15,6 +15,7 @@
 - Q: ¿Qué se hace con la sección del pipeline? → A: Se conserva tal cual; se refinará después.
 - Q: ¿Cuántas cifras tiene la banda principal? → A: 4 (experiencias, organizaciones, países y sectores).
 - Q: ¿Cuántos proyectos se destacan? → A: 6, uno por sector principal.
+- Petición de Andrés (2026-10-26): sustituir las etiquetas de países por un mapa global estilizado y dinámico con puntos vivos (FR-006b, T018). También retirar Go de las capacidades.
 - Corrección de medida (2026-10-26, T002): la línea base de 2.340 palabras contaba también atributos y paneles ocultos con otro método. Medido con el test de presupuesto: 1.808 en total y 1.153 visibles. Los objetivos de FR-001 y SC-001 se ajustan a esa medida.
 
 ## Contexto
@@ -125,6 +126,7 @@ El visitante interesado puede escribir a `andres.mejia@tekhos.com` o conectar en
 
 - **FR-005**: Toda cifra visible MUST seguir siendo verificable en la propia página (ADR-003). La banda principal MUST reducirse a 4 cifras: experiencias, organizaciones, países y sectores. Los ecosistemas backend y las clouds pasan a las áreas de capacidad, sin cifra.
 - **FR-006**: Los clientes MUST aparecer con su nombre y su contexto (ADR-005).
+- **FR-006b**: Los países de clientes y equipos MUST mostrarse sobre un mapa global estilizado con un punto vivo por país, a escala de país y nunca de ciudad. La lista de países por región se conserva como leyenda accesible y como evidencia de la cifra; con movimiento reducido o sin JS los puntos son estáticos y los puntos fuera de pantalla no se animan.
 
 **Capacidades**
 
