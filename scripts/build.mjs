@@ -21,6 +21,7 @@ const PORTRAIT = 'assets/andres-retrato-definitivo.png';
 const PORTRAIT_SHA256 = '9075e09dbbd93f301c09ed46869a6284f9652b7fa3a272f2490443ef76e99907';
 const INDEXABLE = process.env.SITE_INDEXABLE === 'true';
 const SITE_URL = process.env.SITE_URL?.replace(/\/+$/, '');
+const REQUIRED_KPIS = ['engagements', 'organisations', 'countries', 'industries'];
 const MIME = { '.ttf': 'font/ttf', '.woff2': 'font/woff2', '.svg': 'image/svg+xml', '.png': 'image/png', '.webp': 'image/webp', '.avif': 'image/avif' };
 
 const fail = (message) => {
@@ -53,7 +54,6 @@ function validateClaims(html) {
   const evidence = decode(
     html
       .replace(/<div class="kpi" data-kpi=[\s\S]*?<\/div>/g, '')
-      .replace(/<button type="button" class="stack-kpi[^>]*>[\s\S]*?<\/button>/g, '')
       .replace(/<[^>]+>/g, ' ')
   );
   let checked = 0;
@@ -65,7 +65,16 @@ function validateClaims(html) {
     if (missing.length) fail(`la cifra ${value} cuenta elementos que no aparecen en la página: ${missing.join(', ')}`);
     checked++;
   }
-  if (checked < 9) fail(`se esperaban al menos 9 cifras desglosadas y se validaron ${checked}`);
+  // La banda la fija Andrés (ADR-003, enmienda de 2026-10-26): estas cifras tienen que existir; cualquier otra con data-items se valida igual.
+  for (const name of REQUIRED_KPIS) kpi(name);
+  if (checked < REQUIRED_KPIS.length - 1) fail(`se esperaban ${REQUIRED_KPIS.length - 1} cifras desglosadas y se validaron ${checked}`);
+
+  // Proyectos destacados (spec 001): si hay alguno, son exactamente 6 y van primero.
+  const featured = [...html.matchAll(/<article class="engagement[^"]*"([^>]*)>/g)].map(([, attrs]) => /\bdata-featured\b/.test(attrs));
+  const featuredCount = featured.filter(Boolean).length;
+  if (featuredCount && (featuredCount !== 6 || featured.slice(0, 6).some((f) => !f))) {
+    fail(`los proyectos destacados tienen que ser exactamente 6 y los primeros (hay ${featuredCount})`);
+  }
 
   const regions = [...html.matchAll(/data-region="(\d+)">[\s\S]*?<b>(\d+)<\/b><\/p><ul>([\s\S]*?)<\/ul>/g)];
   for (const [, declared, shown, items] of regions) {

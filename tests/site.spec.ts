@@ -196,21 +196,30 @@ test.describe('tema', () => {
 });
 
 test.describe('cifras', () => {
-  test('KPIs, stack e insights coinciden con el contenido', async ({ page }) => {
+  test('KPIs e insights coinciden con el contenido', async ({ page }) => {
     await page.setViewportSize({ width: 1440, height: 900 });
     await open(page);
     await scrollThrough(page);
     await page.waitForTimeout(1800);
     const kpis = await page.locator('.kpi [data-count-to]').allTextContents();
-    expect(kpis).toEqual(['15', '17', '14', '8', '5', '3']);
+    expect(kpis).toEqual(['15', '17', '14', '8']);
     expect(await page.locator('.region li').count()).toBe(14);
     expect(await page.locator('.engagement').count()).toBe(15);
     await expect(page.locator('.recurring li').first()).toContainText('Event streaming (Kafka)');
     await expect(page.locator('.recurring li').first()).toContainText('5 / 15');
     await page.locator('[data-project-filter="finance"]').click();
     await expect(page.locator('#project-count')).toHaveText('4 selected engagements');
-    await page.locator('.stack-kpi').nth(1).click();
-    await expect(page.locator('[data-tech-select="frontend"]')).toHaveAttribute('aria-pressed', 'true');
+  });
+
+  test('capacidades: 6 áreas con 5 tecnologías como máximo y 30 en total', async ({ page }) => {
+    await open(page);
+    const areas = page.locator('#capabilities .capability');
+    await expect(areas).toHaveCount(6);
+    const perArea = await areas.evaluateAll((els) => els.map((el) => el.querySelectorAll('.capability-tech li').length));
+    for (const n of perArea) expect(n).toBeLessThanOrEqual(5);
+    expect(perArea.reduce((a, b) => a + b, 0)).toBeLessThanOrEqual(30);
+    for (const text of await areas.locator('.capability-projects').allTextContents()) expect(text.length).toBeGreaterThan(20);
+    expect(await page.locator('.stack-kpi, [data-tech-select], .technology-panel').count()).toBe(0);
   });
 });
 
@@ -241,4 +250,29 @@ test.describe('accesibilidad (axe)', () => {
       expect(serious).toEqual([]);
     });
   }
+});
+
+test.describe('presupuesto de texto', () => {
+  test.use({ reducedMotion: 'reduce' });
+  // SC-001 de la spec 001: palabras de <main> en inglés (total, incluido lo plegable); se anotan también las visibles sin desplegar.
+  // El umbral se activa al cerrar la spec (T015); hasta entonces solo se mide y se anota.
+  const WORD_BUDGET: { total: number; visible: number } | null = null;
+  test('palabras de la página en inglés', async ({ page }) => {
+    await page.setViewportSize({ width: 1440, height: 900 });
+    await open(page);
+    // Total: todo el texto de <main>, incluido lo plegado (desplegables, tarjetas ocultas), sin SVG ni copias visuales.
+    const { visible, total } = await page.evaluate(() => {
+      const count = (text: string) => (text.match(/[A-Za-zÀ-ÿ0-9][\w'’./+-]*/g) ?? []).length;
+      const main = document.querySelector('main') as HTMLElement;
+      const clone = main.cloneNode(true) as HTMLElement;
+      clone.querySelectorAll('svg,script,[data-i18n-skip],.decode-overlay').forEach((el) => el.remove());
+      return { visible: count(main.innerText), total: count(clone.textContent ?? '') };
+    });
+    test.info().annotations.push({ type: 'palabras', description: `visibles ${visible} · total ${total}` });
+    console.log(`palabras en <main>: visibles ${visible} · total ${total}`);
+    if (WORD_BUDGET !== null) {
+      expect(total).toBeLessThanOrEqual(WORD_BUDGET.total);
+      expect(visible).toBeLessThanOrEqual(WORD_BUDGET.visible);
+    }
+  });
 });

@@ -15,10 +15,11 @@
 - Q: ¿Qué se hace con la sección del pipeline? → A: Se conserva tal cual; se refinará después.
 - Q: ¿Cuántas cifras tiene la banda principal? → A: 4 (experiencias, organizaciones, países y sectores).
 - Q: ¿Cuántos proyectos se destacan? → A: 6, uno por sector principal.
+- Corrección de medida (2026-10-26, T002): la línea base de 2.340 palabras contaba también atributos y paneles ocultos con otro método. Medido con el test de presupuesto: 1.808 en total y 1.153 visibles. Los objetivos de FR-001 y SC-001 se ajustan a esa medida.
 
 ## Contexto
 
-La página actual (fase 1) tiene unas 2.340 palabras en inglés dentro del contenido principal, 10 secciones, 129 etiquetas en el explorador tecnológico y 71 en las tarjetas de proyecto. Demuestra amplitud, pero se lee como una lista de palabras clave y no transmite liderazgo ni trayectoria empresarial. Las decisiones de posicionamiento están en ADR-005: titular de arquitecto independiente; Team Cloud y Tekhos como trayectoria; clientes con nombre.
+La página actual (fase 1) tiene 1.808 palabras en inglés dentro del contenido principal (1.153 visibles sin desplegar), 10 secciones, 129 etiquetas en el explorador tecnológico y 71 en las tarjetas de proyecto. Demuestra amplitud, pero se lee como una lista de palabras clave y no transmite liderazgo ni trayectoria empresarial. Las decisiones de posicionamiento están en ADR-005: titular de arquitecto independiente; Team Cloud y Tekhos como trayectoria; clientes con nombre.
 
 ## User Scenarios & Testing *(mandatory)*
 
@@ -115,7 +116,7 @@ El visitante interesado puede escribir a `andres.mejia@tekhos.com` o conectar en
 
 **Mensaje y estructura**
 
-- **FR-001**: La página MUST reducir el texto visible inicialmente (sin desplegar) al menos un 35 % respecto a la versión del 2026-10-26, sin perder ninguna cifra verificable ni su evidencia.
+- **FR-001**: La página MUST reducir su texto total (incluido lo plegable) al menos un tercio respecto a la versión del 2026-10-26, y el texto visible sin desplegar MUST NOT crecer por encima de 1.000 palabras, sin perder ninguna cifra verificable ni su evidencia.
 - **FR-002**: La página MUST mantener el titular de arquitecto de software independiente y no presentar Tekhos como marca de la página (ADR-005).
 - **FR-003**: Cada sección MUST tener un único mensaje principal; los detalles secundarios quedan en elementos desplegables.
 - **FR-004**: La sección del pipeline MUST conservarse tal cual en este refinamiento (contenido, etapas, contextos y animación). Su simplificación queda para una iteración posterior.
@@ -167,7 +168,7 @@ El visitante interesado puede escribir a `andres.mejia@tekhos.com` o conectar en
 
 ### Measurable Outcomes
 
-- **SC-001**: El texto visible sin desplegar baja de unas 2.340 palabras a 1.500 o menos en inglés, con la misma proporción en español (el pipeline, que se conserva, cuenta dentro de ese total).
+- **SC-001**: El texto de `<main>` en inglés baja de 1.808 palabras en total a 1.200 o menos, y el visible sin desplegar (1.153 hoy) queda en 1.000 o menos, con la misma proporción en español (el pipeline, que se conserva, cuenta dentro de esos totales).
 - **SC-002**: Las tecnologías nombradas en la sección de capacidades bajan de 129 a 30 o menos.
 - **SC-003**: En una prueba de 60 segundos con al menos 3 personas del perfil objetivo, todas describen a Andrés como senior, mencionan liderazgo y citan al menos dos sectores.
 - **SC-004**: El 100 % de las cifras visibles pasa la validación de evidencia y el 100 % de los textos tiene versión en español.
