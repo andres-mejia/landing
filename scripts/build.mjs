@@ -54,7 +54,6 @@ function validateClaims(html) {
   const evidence = decode(
     html
       .replace(/<div class="kpi" data-kpi=[\s\S]*?<\/div>/g, '')
-      .replace(/<button type="button" class="stack-kpi[^>]*>[\s\S]*?<\/button>/g, '')
       .replace(/<[^>]+>/g, ' ')
   );
   let checked = 0;

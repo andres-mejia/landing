@@ -196,7 +196,7 @@ test.describe('tema', () => {
 });
 
 test.describe('cifras', () => {
-  test('KPIs, stack e insights coinciden con el contenido', async ({ page }) => {
+  test('KPIs e insights coinciden con el contenido', async ({ page }) => {
     await page.setViewportSize({ width: 1440, height: 900 });
     await open(page);
     await scrollThrough(page);
@@ -209,8 +209,17 @@ test.describe('cifras', () => {
     await expect(page.locator('.recurring li').first()).toContainText('5 / 15');
     await page.locator('[data-project-filter="finance"]').click();
     await expect(page.locator('#project-count')).toHaveText('4 selected engagements');
-    await page.locator('.stack-kpi').nth(1).click();
-    await expect(page.locator('[data-tech-select="frontend"]')).toHaveAttribute('aria-pressed', 'true');
+  });
+
+  test('capacidades: 6 áreas con 5 tecnologías como máximo y 30 en total', async ({ page }) => {
+    await open(page);
+    const areas = page.locator('#capabilities .capability');
+    await expect(areas).toHaveCount(6);
+    const perArea = await areas.evaluateAll((els) => els.map((el) => el.querySelectorAll('.capability-tech li').length));
+    for (const n of perArea) expect(n).toBeLessThanOrEqual(5);
+    expect(perArea.reduce((a, b) => a + b, 0)).toBeLessThanOrEqual(30);
+    for (const text of await areas.locator('.capability-projects').allTextContents()) expect(text.length).toBeGreaterThan(20);
+    expect(await page.locator('.stack-kpi, [data-tech-select], .technology-panel').count()).toBe(0);
   });
 });
 

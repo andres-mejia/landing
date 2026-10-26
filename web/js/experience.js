@@ -1,5 +1,5 @@
-/* Progressive enhancement: all project and technology content stays in the HTML.
-   Filters, expansion and the technology explorer animate their transitions. */
+/* Progressive enhancement: all project content stays in the HTML.
+   Filters and expansion animate their transitions. */
 (()=>{
  'use strict';
  const reducedMotion=matchMedia('(prefers-reduced-motion: reduce)');
@@ -81,41 +81,5 @@
  });
  renderProjects(false);
 
- const selectors=[...document.querySelectorAll('[data-tech-select]')];
- const panels=[...document.querySelectorAll('.technology-panel')];
- panels.forEach(panel=>panel.querySelectorAll('.technology-tags li').forEach((li,i)=>li.style.setProperty('--i',String(i))));
- function selectTechnology(button,animate=true){
-  selectors.forEach(other=>other.setAttribute('aria-pressed',String(other===button)));
-  panels.forEach(panel=>{
-   const show=panel.id===button.getAttribute('aria-controls');
-   panel.hidden=!show;
-   if(show&&animate&&!reducedMotion.matches){
-    panel.classList.remove('is-entering');void panel.offsetWidth;panel.classList.add('is-entering');
-    const label=panel.querySelector('[data-decode]');
-    if(label)requestAnimationFrame(()=>window.siteDecode?.(label,480));
-   }
-  });
-  dispatchEvent(new Event('resize'));
- }
- selectors.forEach(button=>button.addEventListener('click',()=>{if(button.getAttribute('aria-pressed')!=='true')selectTechnology(button)}));
- selectors.forEach((button,i)=>button.addEventListener('keydown',event=>{
-  const delta={ArrowDown:1,ArrowRight:1,ArrowUp:-1,ArrowLeft:-1}[event.key];
-  if(!delta)return;
-  event.preventDefault();
-  const next=selectors[(i+delta+selectors.length)%selectors.length];
-  selectTechnology(next);next.focus();
- }));
- selectTechnology(selectors[0],false);
-
- /* "Stack in numbers": each figure opens the discipline it was counted from */
- document.querySelectorAll('[data-open-tech]').forEach(button=>button.addEventListener('click',()=>{
-  const selector=selectors.find(s=>s.dataset.techSelect===button.dataset.openTech);
-  if(!selector)return;
-  if(selector.getAttribute('aria-pressed')!=='true')selectTechnology(selector);
-  const layout=document.querySelector('.technology-layout');
-  const top=layout.getBoundingClientRect().top;
-  if(top<0||top>innerHeight*.55)layout.scrollIntoView({behavior:reducedMotion.matches?'instant':'smooth',block:'start'});
-  selector.focus({preventScroll:true});
- }));
  document.querySelectorAll('.region li').forEach((li,i)=>li.style.setProperty('--i',String(i)));
 })();
