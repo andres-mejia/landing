@@ -34,3 +34,10 @@
 
 - Para cambiar una cifra hay que cambiar su evidencia, o el build falla. Es intencionado.
 - **Pendiente de Andrés:** totales reales de proyectos y clientes (los actuales son los que se pueden comprobar en la página), herramientas BPM y cifras de resultado por proyecto.
+
+## Enmienda (2026-10-26, spec 001)
+
+- **La banda principal pasa a 4 cifras** por decisión de Andrés: experiencias, organizaciones, países y sectores. Los ecosistemas backend y las clouds salen de la banda y se describen en las áreas de capacidad, sin cifra. Las 4 cifras del stack (frameworks backend y frontend, herramientas ETL y plataformas big data) se retiran con el explorador tecnológico.
+- **El build valida una lista explícita** (`REQUIRED_KPIS` en `scripts/build.mjs`) en lugar de exigir "al menos 9 cifras desglosadas": tiene que existir cada una de las 4 y toda cifra con `data-items` sigue validando número y evidencia.
+- **Proyectos destacados:** si hay tarjetas con `data-featured`, tienen que ser exactamente 6 y las primeras.
+
