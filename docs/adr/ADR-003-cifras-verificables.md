@@ -12,14 +12,14 @@
 ## Decisión
 
 - **Solo se publican cifras con evidencia visible en la página.**
-  - Banda principal: 16 experiencias, 18 organizaciones, 14 países, 8 sectores, 5 ecosistemas backend y 3 clouds + on-prem.
+  - Banda principal: 15 experiencias, 17 organizaciones (16 y 18 hasta el 2026-10-26, antes de retirar la PoC de Mercedes-Benz), 14 países, 8 sectores, 5 ecosistemas backend y 3 clouds + on-prem.
   - El stack en cifras: 11 frameworks backend, 6 frameworks frontend, 6 herramientas ETL y 5 plataformas big data.
 - **Cada cifra lleva `data-items`** con la lista exacta de lo que cuenta. `scripts/build.mjs` falla si:
   - el número no coincide con la lista;
   - un elemento no aparece en el contenido **fuera de la propia cifra** (coincidencia de token completo, para que "Go" no se valide con "Google");
   - el KPI de experiencias no coincide con las tarjetas;
   - los países por región no suman el KPI.
-- **Los insights de Experiencia los calcula `experience.js`** a partir de las tarjetas: la distribución por ámbito y las tecnologías más recurrentes (Kafka en 6 de 16). No pueden desincronizarse.
+- **Los insights de Experiencia los calcula `experience.js`** a partir de las tarjetas: la distribución por ámbito y las tecnologías más recurrentes (Kafka en 5 de 15). No pueden desincronizarse.
 - **Las cifras de resultado** se añadirán por proyecto solo con el dato de Andrés, cómo se midió y su permiso de publicación.
 
 ## Alternativas

@@ -50,7 +50,7 @@ Arquitectura con criterio y software que evoluciona. Más de 20 años diseñando
 ## Evidence on Hand
 
 - Retrato aprobado: `web/assets/andres-retrato-definitivo.png`, camisa y americana negras, verificado por hash en el build. No se retoca.
-- 16 experiencias documentadas en tarjetas, 18 organizaciones, 14 países, 8 sectores, 5 ecosistemas backend y 3 clouds más on-prem, cada cifra con su lista en `data-items` (ADR-003).
+- 15 experiencias documentadas en tarjetas, 17 organizaciones, 14 países, 8 sectores, 5 ecosistemas backend y 3 clouds más on-prem, cada cifra con su lista en `data-items` (ADR-003).
 - Trayectoria: Chief Software Architect en PFS Group, fundador de FENORA, fundador de Team Cloud.
 - Contacto confirmado: LinkedIn.
 - **Ausente:** cifras de resultado por proyecto, testimonios, logotipos de clientes, email de contacto propio, totales de proyectos superiores a los comprobables. No se inventan.
