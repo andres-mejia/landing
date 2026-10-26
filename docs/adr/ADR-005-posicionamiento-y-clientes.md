@@ -27,3 +27,7 @@
 - El copy actual ya cumple ambas decisiones; no hay cambios en `web/`.
 - Las cifras de organizaciones siguen validándose por nombre (ADR-003).
 - Un cliente nuevo solo se añade con el nombre y el contexto que confirme Andrés.
+
+## Actualización (2026-10-26)
+
+- Andrés retira la tarjeta de Mercedes-Benz (prueba de concepto dentro del porfolio de PFS). Las cifras pasan a 15 experiencias y 17 organizaciones; el build y los tests lo validan.

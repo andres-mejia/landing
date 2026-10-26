@@ -46,7 +46,7 @@ Cada push a `main` se publica automáticamente en https://andres.tekhos.com con 
 | D1 | ~~Relación con Tekhos~~. Resuelta el 2026-10-25 (ADR-005): profesional independiente; Tekhos tendrá su propia landing. | — | — |
 | D2 | ~~Criterio de clientes~~. Resuelta el 2026-10-25 (ADR-005): los nombres no se anonimizan. | — | — |
 | D3 | ~~Dominio~~. Resuelta el 2026-10-25: esta landing en `andres.tekhos.com`; `tekhos.com` para la empresa. | — | — |
-| D4 | Totales reales de proyectos y clientes, si son mayores que los comprobables (16 y 18). Se publicarían como "40+ proyectos · 16 documentados". | P2 | M4 |
+| D4 | Totales reales de proyectos y clientes, si son mayores que los comprobables (15 y 17). Se publicarían como "40+ proyectos · 15 documentados". | P2 | M4 |
 | D5 | Herramientas BPM (Camunda, jBPM, Bizagi…): quinta cifra del stack y entrada en el panel tecnológico. | P2 | M4 |
 
 ## Contenido (etiqueta `content`)
