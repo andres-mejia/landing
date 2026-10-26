@@ -31,7 +31,7 @@
 ## Actualización (2026-10-26)
 
 - **D1 se amplía.** El titular sigue siendo "arquitecto de software independiente", pero la trayectoria empresarial entra en la página (experiencia y "Sobre mí"):
-  - **Team Cloud:** primera empresa de Andrés, fundada en 2012 en Colombia; consultoría y desarrollo de software a medida para empresas nacionales y europeas; vendida en 2021.
+  - **Team Cloud:** primera empresa de Andrés, fundada en 2012 en Colombia, donde fue fundador y CTO de 2012 a 2021; consultoría y desarrollo de software a medida para empresas nacionales y europeas; vendida en 2021.
   - **Tekhos:** la empresa que Andrés está construyendo para ofrecer sus servicios con estructura de pyme (constitución como SL prevista en 2026). Fundador y CEO. Se presenta como continuación de la visión de Team Cloud con alcance global, **no como un cambio de nombre**, porque son empresas distintas.
   - Tekhos tendrá su propia landing en `tekhos.com`; esta página no la sustituye.
 - **Idiomas:** "Spanish (native) · English (professional working proficiency)".
