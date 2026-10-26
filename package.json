@@ -12,12 +12,16 @@
     "test:ui": "playwright test --ui",
     "check:deploy": "node scripts/validate-amplify.mjs",
     "check:email": "node scripts/build-email-stack.mjs --check",
+    "build:map": "node scripts/build-map.mjs",
+    "check:map": "node scripts/build-map.mjs --check",
     "detect": "npx --yes impeccable@4.5.2 detect dist",
     "check:node": "node scripts/check-node.mjs"
   },
   "devDependencies": {
     "@axe-core/playwright": "4.13.0",
     "@playwright/test": "1.64.0",
+    "topojson-client": "3.1.0",
+    "world-atlas": "2.0.2",
     "yaml": "2.9.1"
   },
   "engines": {

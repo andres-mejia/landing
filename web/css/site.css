@@ -392,14 +392,25 @@ html[lang=es] .hero-facts>div:nth-child(2) strong{font-size:16px}
 .kpi:hover .kpi-value{color:var(--accent)}
 .kpi-label{display:block;margin-top:18px;font-size:13px;line-height:1.4;color:var(--text)}
 .kpi-sub{display:block;margin-top:6px;font-size:12px;line-height:1.55;letter-spacing:.01em;color:var(--text-4)}
-.countries{display:grid;grid-template-columns:200px 1fr;gap:24px 40px;margin-top:0;padding-top:26px;border-top:1px solid var(--line)}
+.countries{display:grid;grid-template-columns:minmax(240px,300px) 1fr;gap:28px 56px;align-items:center;margin-top:0;padding-top:34px;border-top:1px solid var(--line)}
+.countries-legend{min-width:0}
 .countries-title{font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--accent-label);padding-top:3px}
-.regions{display:grid;grid-template-columns:7fr 5fr 2.4fr;gap:20px 36px}
+.regions{display:grid;gap:22px;margin-top:26px}
 .region-name{font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--text-4);margin-bottom:10px}
 .region-name b{font-weight:400;color:var(--accent);margin-left:6px}
-.region ul{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:6px}
-.region li{font-size:12px;padding:5px 9px;border:1px solid var(--tag-border);background:var(--tag-bg);color:var(--text-2);transition:border-color .25s,color .25s,opacity .5s var(--ease),transform .5s var(--ease)}
-.region li:hover{border-color:var(--accent);color:var(--text)}
+.region ul{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:4px 14px}
+.region li{font-size:13px;line-height:1.5;color:var(--text-2);cursor:default;transition:color .25s,opacity .5s var(--ease),transform .5s var(--ease)}
+.region li:hover,.region li.is-active{color:var(--text)}
+.world-map{margin:0;min-width:0}
+.world-map svg{display:block;width:100%;height:auto;overflow:visible}
+.map-land{color:var(--line-strong)}
+.pin-core{fill:var(--accent);transition:transform .35s var(--ease)}
+.pin-pulse{fill:none;stroke:var(--accent);stroke-width:2;opacity:0}
+.pin-core,.pin-pulse{transform-box:fill-box;transform-origin:center}
+.pin.is-active .pin-core{transform:scale(1.7)}
+/* Puntos vivos: un pulso lento y desfasado por país, solo mientras el mapa está en pantalla (app.js añade .is-live). */
+.world-map.is-live .pin-pulse{animation:pin-pulse 3.6s var(--ease) infinite;animation-delay:calc(var(--i,0) * -.53s)}
+@keyframes pin-pulse{0%{opacity:.75;transform:scale(1)}70%,100%{opacity:0;transform:scale(4.2)}}
 [data-reveal=waiting] .region li{opacity:0;transform:translateY(6px)}
 [data-reveal=visible] .region li{transition-delay:calc(var(--i,0)*35ms + .5s)}
 
@@ -893,8 +904,12 @@ footer>a:last-child:hover{border-color:var(--accent);transform:translateY(-3px)}
 }
 @media(max-width:1100px){
   .js .insights{gap:36px}
-  .countries{grid-template-columns:1fr;gap:16px}
   .kpi-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .countries{grid-template-columns:1fr}
+  .world-map{order:-1}
+  .pin-core{r:10px}
+  .pin-pulse{r:11px}
+  .regions{grid-template-columns:repeat(3,minmax(0,1fr))}
   .capabilities{grid-template-columns:repeat(2,minmax(0,1fr))}
   .kpi:nth-child(odd){border-left:0;padding-left:0}
   .kpi:nth-child(odd)::before{left:0}
@@ -916,6 +931,8 @@ footer>a:last-child:hover{border-color:var(--accent);transform:translateY(-3px)}
   .kpi-label{margin-top:12px}
   .countries{grid-template-columns:1fr;gap:16px}
   .regions{grid-template-columns:1fr;gap:18px}
+  .pin-core{r:15px}
+  .pin-pulse{r:16px}
   .js .insights{grid-template-columns:1fr;gap:34px;margin-top:34px}
   .domain-legend{grid-template-columns:1fr;gap:0}
   .recurring li{grid-template-columns:1fr 60px;gap:6px 12px}
