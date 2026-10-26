@@ -1,0 +1,108 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: Tekhos, envio de correo con SES en eu-west-1 (cuenta en produccion). Identidad tekhos.com con DKIM, MAIL FROM, SPF y DMARC, y usuario SMTP que solo puede enviar como *@tekhos.com (ADR-006).
+
+Parameters:
+  Domain:
+    Type: String
+    Default: tekhos.com
+  HostedZoneId:
+    Type: String
+    Default: Z025408038NPHX3W382AH
+  DmarcReportsTo:
+    Type: String
+    Default: dmarc@tekhos.com
+    Description: Buzon de informes DMARC (lo recoge el comodin de recepcion)
+
+Resources:
+  Identity:
+    Type: AWS::SES::EmailIdentity
+    Properties:
+      EmailIdentity: !Ref Domain
+      DkimSigningAttributes:
+        NextSigningKeyLength: RSA_2048_BIT
+      MailFromAttributes:
+        MailFromDomain: !Sub mail.${Domain}
+        BehaviorOnMxFailure: USE_DEFAULT_VALUE
+
+  Dkim1:
+    Type: AWS::Route53::RecordSet
+    Properties:
+      HostedZoneId: !Ref HostedZoneId
+      Name: !GetAtt Identity.DkimDNSTokenName1
+      Type: CNAME
+      TTL: '1800'
+      ResourceRecords: [!GetAtt Identity.DkimDNSTokenValue1]
+  Dkim2:
+    Type: AWS::Route53::RecordSet
+    Properties:
+      HostedZoneId: !Ref HostedZoneId
+      Name: !GetAtt Identity.DkimDNSTokenName2
+      Type: CNAME
+      TTL: '1800'
+      ResourceRecords: [!GetAtt Identity.DkimDNSTokenValue2]
+  Dkim3:
+    Type: AWS::Route53::RecordSet
+    Properties:
+      HostedZoneId: !Ref HostedZoneId
+      Name: !GetAtt Identity.DkimDNSTokenName3
+      Type: CNAME
+      TTL: '1800'
+      ResourceRecords: [!GetAtt Identity.DkimDNSTokenValue3]
+
+  MailFromMx:
+    Type: AWS::Route53::RecordSet
+    Properties:
+      HostedZoneId: !Ref HostedZoneId
+      Name: !Sub mail.${Domain}
+      Type: MX
+      TTL: '1800'
+      ResourceRecords: [!Sub '10 feedback-smtp.${AWS::Region}.amazonses.com']
+  MailFromSpf:
+    Type: AWS::Route53::RecordSet
+    Properties:
+      HostedZoneId: !Ref HostedZoneId
+      Name: !Sub mail.${Domain}
+      Type: TXT
+      TTL: '1800'
+      ResourceRecords: ['"v=spf1 include:amazonses.com ~all"']
+
+  # SPF del dominio raiz: cuando llegue Google Workspace se anade include:_spf.google.com.
+  RootSpf:
+    Type: AWS::Route53::RecordSet
+    Properties:
+      HostedZoneId: !Ref HostedZoneId
+      Name: !Ref Domain
+      Type: TXT
+      TTL: '1800'
+      ResourceRecords: ['"v=spf1 include:amazonses.com ~all"']
+  Dmarc:
+    Type: AWS::Route53::RecordSet
+    Properties:
+      HostedZoneId: !Ref HostedZoneId
+      Name: !Sub _dmarc.${Domain}
+      Type: TXT
+      TTL: '1800'
+      ResourceRecords: [!Sub '"v=DMARC1; p=none; rua=mailto:${DmarcReportsTo}; fo=1"']
+
+  # Usuario para el SMTP de SES ("Enviar como" en Gmail). La clave la crea scripts/ses-smtp-secret.py y la guarda en Secrets Manager.
+  SmtpUser:
+    Type: AWS::IAM::User
+    Properties:
+      UserName: tekhos-ses-smtp
+      Policies:
+        - PolicyName: send-as-tekhos
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action: ses:SendRawEmail
+                Resource: !Sub arn:aws:ses:${AWS::Region}:${AWS::AccountId}:identity/${Domain}
+                Condition:
+                  StringLike:
+                    ses:FromAddress: !Sub '*@${Domain}'
+
+Outputs:
+  SmtpUserName:
+    Value: !Ref SmtpUser
+  SmtpHost:
+    Value: !Sub email-smtp.${AWS::Region}.amazonaws.com
