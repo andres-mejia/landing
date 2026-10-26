@@ -51,11 +51,11 @@ Arquitectura con criterio y software que evoluciona. Más de 20 años diseñando
 
 - Retrato aprobado: `web/assets/andres-retrato-definitivo.png`, camisa y americana negras, verificado por hash en el build. No se retoca.
 - 15 experiencias documentadas en tarjetas, 17 organizaciones, 14 países, 8 sectores, 5 ecosistemas backend y 3 clouds más on-prem, cada cifra con su lista en `data-items` (ADR-003).
-- Trayectoria: Chief Software Architect en PFS Group, fundador de FENORA, fundador de Team Cloud.
+- Trayectoria: Chief Software Architect en PFS Group (2019–2024); fundador de FENORA, producto SaaS propio desde 2025 con lanzamiento en producción previsto en diciembre de 2026; Team Leader y Architecture Lead de equipos de hasta 12 personas.
 - Trayectoria empresarial: fundador y CTO de Team Cloud (Colombia, 2012–2021, vendida en 2021); fundador y CEO de Tekhos (en construcción, SL prevista en 2026).
 - Idiomas: español nativo, inglés profesional.
 - Contacto confirmado: LinkedIn y `andres.mejia@tekhos.com` (ADR-006).
-- **Ausente:** cifras de resultado por proyecto, testimonios, logotipos de clientes, email de contacto propio, totales de proyectos superiores a los comprobables. No se inventan.
+- **Ausente:** cifras de resultado por proyecto, testimonios, logotipos de clientes, totales de proyectos superiores a los comprobables. No se inventan.
 
 ## Product Principles
 
