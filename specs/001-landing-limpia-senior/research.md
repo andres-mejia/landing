@@ -7,7 +7,7 @@ Fase 0 de `/speckit-plan`. No quedan `NEEDS CLARIFICATION` en el contexto técni
 - **Decision:** 6 áreas con 5 tecnologías cada una (30 en total), elegidas entre las etiquetas de las tarjetas de proyecto para que cada una tenga un proyecto real detrás. Detalle en [data-model.md](data-model.md).
 - **Rationale:** cumple FR-008 y el caso límite de la spec ("una tecnología se nombra en un área solo si aparece en al menos un proyecto de la página o Andrés la confirma"). Prioriza lo moderno que la página respalda: Kafka, CDC, Azure/AWS, Terraform/Argo CD, RAG/MCP.
 - **Alternatives considered:** tomar las 5 primeras de cada panel actual (varias, como GCP, RabbitMQ, PostgreSQL, Redis u OpenTelemetry, solo aparecen en los paneles que se retiran y quedarían sin evidencia en la página); 4 por área (24 en total, demasiado escueto para mostrar amplitud).
-- **Pendiente de Andrés:** Go solo aparece en el panel de backend (y en la cifra de ecosistemas que se retira). Se mantiene en el área de backend porque ya formaba parte del contenido aprobado; Andrés puede retirarlo en la revisión.
+- **Resuelto con Andrés (2026-10-26):** Go se retira; solo aparecía en el panel de backend y en la cifra de ecosistemas retirada. Backend queda con 4 tecnologías (29 en total).
 
 ## R2. Las 6 áreas frente a las 6 de la spec
 
