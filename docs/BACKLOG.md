@@ -53,7 +53,7 @@ Cada push a `main` se publica automáticamente en https://andres.tekhos.com con 
 
 | # | Tarea | Prioridad | Milestone |
 |---|---|---|---|
-| C1 | Contacto: email de dominio propio (`@tekhos.com`, si Andrés lo confirma) y enlace a Malt, además de LinkedIn. Sin formulario sin destino. | P1 | M1 |
+| C1 | Contacto: `andres.mejia@tekhos.com` (operativo desde el 2026-10-26, ADR-006) y enlace a Malt, además de LinkedIn. Sin formulario sin destino. | P1 | M1 |
 | C2 | Cifras de resultado en 3–4 proyectos: métrica, cómo se midió y permiso de publicación. Candidatos: Umivale (eventos/día del CDC), SCRM (eventos/s en carga), Beabloo (servicios migrados y plazo), INE Chile (volumen), PFS (productos y tamaño de equipo), FENORA (bancos conectados). | P1 | M4 |
 | C3 | Tarjetas de proyecto: verbos de resultado en lugar de "Worked on…" / "Trabajo en…". | P2 | M1 |
 | C4 | Trabajo reciente que todavía no aparece en la landing. Andrés decide qué proyectos se incluyen y cómo se nombran; no se añade nada sin su OK. | P2 | M4 |
