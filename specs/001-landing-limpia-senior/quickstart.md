@@ -21,7 +21,7 @@ Qué tiene que pasar, además de lo que ya cubría la suite:
 
 | Escenario | Resultado esperado | Requisito |
 |---|---|---|
-| Banda de cifras | 4 valores: 15, 17, 14, 8; países por región suman 14 | FR-005 |
+| Banda de cifras | 4 valores: 15, 17, 16, 8; países por región suman 16 | FR-005 |
 | Capacidades | 6 áreas; ninguna con más de 5 tecnologías; 30 o menos en total | FR-007, FR-008, SC-002 |
 | Experiencia | Las 6 primeras tarjetas visibles son las destacadas y en el orden del [data-model](../data-model.md); filtro de banca sigue en 4 | FR-010 |
 | Trayectoria | 4 hitos con periodo: 2012–2021, 2019–2024, 2025–, 2026– | FR-014 |

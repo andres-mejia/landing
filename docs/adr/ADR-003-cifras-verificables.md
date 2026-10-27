@@ -12,7 +12,7 @@
 ## Decisión
 
 - **Solo se publican cifras con evidencia visible en la página.**
-  - Banda principal: 15 experiencias, 17 organizaciones (16 y 18 hasta el 2026-10-26, antes de retirar la PoC de Mercedes-Benz), 14 países, 8 sectores, 5 ecosistemas backend y 3 clouds + on-prem.
+  - Banda principal: 15 experiencias, 17 organizaciones (16 y 18 hasta el 2026-10-26, antes de retirar la PoC de Mercedes-Benz), 16 países (14 hasta el 2026-10-27; Andrés añade Chile y Perú), 14 países, 8 sectores, 5 ecosistemas backend y 3 clouds + on-prem.
   - El stack en cifras: 11 frameworks backend, 6 frameworks frontend, 6 herramientas ETL y 5 plataformas big data.
 - **Cada cifra lleva `data-items`** con la lista exacta de lo que cuenta. `scripts/build.mjs` falla si:
   - el número no coincide con la lista;

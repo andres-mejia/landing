@@ -202,8 +202,8 @@ test.describe('cifras', () => {
     await scrollThrough(page);
     await page.waitForTimeout(1800);
     const kpis = await page.locator('.kpi [data-count-to]').allTextContents();
-    expect(kpis).toEqual(['15', '17', '14', '8']);
-    expect(await page.locator('.region li').count()).toBe(14);
+    expect(kpis).toEqual(['15', '17', '16', '8']);
+    expect(await page.locator('.region li').count()).toBe(16);
     expect(await page.locator('.engagement').count()).toBe(15);
     await expect(page.locator('.recurring li').first()).toContainText('Event streaming (Kafka)');
     await expect(page.locator('.recurring li').first()).toContainText('5 / 15');
@@ -256,8 +256,8 @@ test.describe('mapa de países', () => {
     await open(page);
     const map = page.locator('.world-map');
     await expect(map).toHaveAttribute('aria-hidden', 'true');
-    await expect(map.locator('.pin')).toHaveCount(14);
-    await expect(page.locator('.region li')).toHaveCount(14);
+    await expect(map.locator('.pin')).toHaveCount(16);
+    await expect(page.locator('.region li')).toHaveCount(16);
     await map.scrollIntoViewIfNeeded();
     await expect(map).toHaveClass(/is-live/);
     await page.locator('.region li').first().hover();
