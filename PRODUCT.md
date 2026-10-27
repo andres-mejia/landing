@@ -50,7 +50,7 @@ Arquitectura con criterio y software que evoluciona. Más de 20 años diseñando
 ## Evidence on Hand
 
 - Retrato aprobado: `web/assets/andres-retrato-definitivo.png`, camisa y americana negras, verificado por hash en el build. No se retoca.
-- 16 experiencias documentadas en tarjetas, 17 organizaciones, 16 países, 9 sectores, cada cifra con su lista en `data-items` (ADR-003).
+- 16 experiencias documentadas en tarjetas, 18 organizaciones, 16 países, 9 sectores, cada cifra con su lista en `data-items` (ADR-003).
 - Trayectoria: Chief Software Architect en PFS Group (2019–2024); fundador de FENORA, producto SaaS propio desde 2025 con lanzamiento en producción previsto en diciembre de 2026; Team Leader y Architecture Lead de equipos de hasta 12 personas.
 - Trayectoria empresarial: fundador y CTO de Team Cloud (Colombia, 2012–2021, vendida en 2021); fundador y CEO de Tekhos (en construcción, SL prevista en 2026).
 - Idiomas: español nativo, inglés profesional.
