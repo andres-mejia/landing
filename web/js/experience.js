@@ -83,6 +83,30 @@
 
  document.querySelectorAll('.region li').forEach((li,i)=>li.style.setProperty('--i',String(i)));
 
+ /* Track record: proportional lanes from 2005 to today. Positions come from data-start/data-end; the "Today" marker pulses while on screen. */
+ const chart=document.querySelector('.journey-chart');
+ if(chart){
+  const now=new Date();
+  const today=now.getFullYear()+now.getMonth()/12;
+  const MIN=2005,MAX=today+.6,span=MAX-MIN;
+  const frac=year=>Math.min(1,Math.max(0,(year-MIN)/span));
+  chart.querySelectorAll('.milestone').forEach((row,i)=>{
+   const start=Number(row.dataset.start);
+   const end=row.dataset.end==='now'?today:Number(row.dataset.end);
+   row.style.setProperty('--s',String(frac(start)));
+   row.style.setProperty('--e',String(frac(end)));
+   row.style.setProperty('--i',String(i));
+  });
+  chart.querySelectorAll('.journey-axis span').forEach(tick=>tick.style.setProperty('--p',String(frac(Number(tick.dataset.year)))));
+  chart.style.setProperty('--now',String(frac(today)));
+  if(!reducedMotion.matches&&'IntersectionObserver' in window){
+   let onScreen=false;
+   const sync=()=>chart.classList.toggle('is-live',onScreen&&!document.hidden&&!reducedMotion.matches);
+   new IntersectionObserver(entries=>{onScreen=entries[0].isIntersecting;sync()}).observe(chart);
+   document.addEventListener('visibilitychange',sync);
+  }
+ }
+
  /* World map: one pin per country, in the same order as the legend. Pins pulse only while the map is on screen. */
  const map=document.querySelector('.world-map');
  if(map){

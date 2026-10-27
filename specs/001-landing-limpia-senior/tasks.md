@@ -34,7 +34,8 @@ description: "Tareas de la spec 001: landing más limpia y senior"
 | US5 · Contacto (P2) | T013 | 4 |
 | Fase final · Pulido | T014 a T017 | 4 |
 | US1 · Mapa de países (P1, añadido el 2026-10-26) | T018 | 5 |
-| **Total** | | **18** |
+| US3 · Timeline en carriles (P1, añadido el 2026-10-27) | T019 | 6 |
+| **Total** | | **19** |
 
 ## Bloques de PR
 
@@ -45,6 +46,7 @@ description: "Tareas de la spec 001: landing más limpia y senior"
 | 3 | T010 a T012 | `m1-b3-experiencia` | 6 proyectos destacados por sector, verbos de resultado, etiquetas reducidas |
 | 4 | T013 a T017 | `m1-b4-contacto-cierre` | Correo de contacto, cabeceras de sección limpias, presupuesto de texto y cierre |
 | 5 | T018 | `m1-b5-mapa` | Mapa global de puntos con un punto vivo por país de clientes y equipos |
+| 6 | T019 | `m1-b6-timeline` | Trayectoria en carriles proporcionales con marcador "hoy" vivo |
 
 ---
 
@@ -100,6 +102,8 @@ Sin tareas: el proyecto, el build y los tests ya existen (M0).
 - [ ] T007 [US3] Sección `section#trayectoria` antes de "Sobre mí" con `ol.journey` de 4 hitos del data-model (Team Cloud, Colombia, 2012–2021, fundador y CTO, vendida en 2021; PFS Group 2019–2024, Chief Software Architect; FENORA 2025–, producto SaaS propio con lanzamiento en producción previsto en diciembre de 2026; Tekhos 2026–, fundador y CEO, continuación de la visión de Team Cloud y no cambio de nombre), bloque `.leadership` (Team Leader y Architecture Lead, equipos de hasta 12 personas) y `.languages` ("Spanish (native) · English (professional working proficiency)"), con claves ES, en web/index.html y web/js/translations.js (FR-013, FR-014, FR-015, FR-018)
 - [ ] T008 [P] [US3] Estilos de `.journey`, `.milestone`, `.leadership` y `.languages` con tokens, revelado con la clase `reveal` existente y ancla `#trayectoria` en `.main-nav` y `#mobile-nav` con su clave ES, en web/css/site.css, web/index.html y web/js/app.js
 - [ ] T009 [US3] Condensar "Sobre mí" (sin repetir la trayectoria ya listada) y el método en una franja de 4 pasos de una línea, con habilidades de impacto (proactividad, decisiones explícitas, acompañamiento hasta producción, transferencia de conocimiento), y tests de trayectoria (4 hitos y periodos), en web/index.html, web/css/site.css, web/js/translations.js y tests/site.spec.ts (FR-016)
+
+- [ ] T019 [US3] Timeline en carriles proporcionales: eje de años 2005 hasta hoy, una barra por etapa con `data-start`/`data-end` posicionada por CSSOM, solapes visibles, crecimiento al entrar en pantalla y marcador "hoy" con el punto vivo del mapa, en web/index.html, web/css/site.css, web/js/experience.js y tests/site.spec.ts (FR-014b)
 
 **Checkpoint**: bloque 2.
 
