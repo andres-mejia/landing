@@ -223,6 +223,18 @@ test.describe('cifras', () => {
   });
 });
 
+test.describe('experiencia', () => {
+  test('los 6 destacados, uno por sector, van primero y son los visibles al cargar', async ({ page }) => {
+    await open(page);
+    const featured = ['Santander', 'Reale Seguros', 'Indra / Minsait · Beabloo', 'Iberia Airlines', 'Indra / Minsait → INE Chile', 'FENORA'];
+    expect(await page.locator('.engagement[data-featured] .engagement-org').allTextContents()).toEqual(featured);
+    expect(await page.locator('.engagement:visible .engagement-org').allTextContents()).toEqual(featured);
+    for (const tags of await page.locator('.engagement').evaluateAll((els) => els.map((el) => el.querySelectorAll('.engagement-tags li').length))) {
+      expect(tags).toBeLessThanOrEqual(4);
+    }
+  });
+});
+
 test.describe('trayectoria', () => {
   test('4 hitos con sus periodos, liderazgo e idiomas en los dos idiomas', async ({ page }) => {
     await open(page);
