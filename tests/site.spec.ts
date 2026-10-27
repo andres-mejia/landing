@@ -202,8 +202,8 @@ test.describe('cifras', () => {
     await scrollThrough(page);
     await page.waitForTimeout(1800);
     const kpis = await page.locator('.kpi [data-count-to]').allTextContents();
-    expect(kpis).toEqual(['15', '17', '14', '8']);
-    expect(await page.locator('.region li').count()).toBe(14);
+    expect(kpis).toEqual(['15', '17', '16', '8']);
+    expect(await page.locator('.region li').count()).toBe(16);
     expect(await page.locator('.engagement').count()).toBe(15);
     await expect(page.locator('.recurring li').first()).toContainText('Event streaming (Kafka)');
     await expect(page.locator('.recurring li').first()).toContainText('5 / 15');
@@ -220,6 +220,18 @@ test.describe('cifras', () => {
     expect(perArea.reduce((a, b) => a + b, 0)).toBeLessThanOrEqual(30);
     for (const text of await areas.locator('.capability-projects').allTextContents()) expect(text.length).toBeGreaterThan(20);
     expect(await page.locator('.stack-kpi, [data-tech-select], .technology-panel').count()).toBe(0);
+  });
+});
+
+test.describe('experiencia', () => {
+  test('los 6 destacados, uno por sector, van primero y son los visibles al cargar', async ({ page }) => {
+    await open(page);
+    const featured = ['Santander', 'Reale Seguros', 'Indra / Minsait · Beabloo', 'Iberia Airlines', 'Indra / Minsait → INE Chile', 'FENORA'];
+    expect(await page.locator('.engagement[data-featured] .engagement-org').allTextContents()).toEqual(featured);
+    expect(await page.locator('.engagement:visible .engagement-org').allTextContents()).toEqual(featured);
+    for (const tags of await page.locator('.engagement').evaluateAll((els) => els.map((el) => el.querySelectorAll('.engagement-tags li').length))) {
+      expect(tags).toBeLessThanOrEqual(4);
+    }
   });
 });
 
@@ -244,8 +256,8 @@ test.describe('mapa de países', () => {
     await open(page);
     const map = page.locator('.world-map');
     await expect(map).toHaveAttribute('aria-hidden', 'true');
-    await expect(map.locator('.pin')).toHaveCount(14);
-    await expect(page.locator('.region li')).toHaveCount(14);
+    await expect(map.locator('.pin')).toHaveCount(16);
+    await expect(page.locator('.region li')).toHaveCount(16);
     await map.scrollIntoViewIfNeeded();
     await expect(map).toHaveClass(/is-live/);
     await page.locator('.region li').first().hover();

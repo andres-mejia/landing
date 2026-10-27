@@ -16,7 +16,8 @@ const OUT = 'web/assets/world-dots.svg';
 export const COUNTRIES = {
   Spain: [40.2, -3.6], Portugal: [39.6, -8.0], France: [46.6, 2.4], Germany: [51.1, 10.4], Austria: [47.6, 14.1],
   Switzerland: [46.8, 8.2], Netherlands: [52.2, 5.5], 'United States': [39.8, -98.6], Mexico: [23.6, -102.5],
-  'Costa Rica': [9.9, -84.1], Colombia: [4.1, -73.0], Argentina: [-34.0, -64.0], Israel: [31.4, 35.0], Egypt: [26.8, 30.8],
+  'Costa Rica': [9.9, -84.1], Colombia: [4.1, -73.0], Peru: [-9.2, -75.0], Chile: [-35.7, -71.5],
+  Argentina: [-34.0, -64.0], Israel: [31.4, 35.0], Egypt: [26.8, 30.8],
 };
 
 export const project = ([lat, lon]) => [Math.round((lon + 180) * MAP.scale * 10) / 10, Math.round((MAP.north - lat) * MAP.scale * 10) / 10];
