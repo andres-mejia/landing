@@ -202,11 +202,11 @@ test.describe('cifras', () => {
     await scrollThrough(page);
     await page.waitForTimeout(1800);
     const kpis = await page.locator('.kpi [data-count-to]').allTextContents();
-    expect(kpis).toEqual(['15', '17', '16', '8']);
+    expect(kpis).toEqual(['16', '17', '16', '9']);
     expect(await page.locator('.region li').count()).toBe(16);
-    expect(await page.locator('.engagement').count()).toBe(15);
+    expect(await page.locator('.engagement').count()).toBe(16);
     await expect(page.locator('.recurring li').first()).toContainText('Event streaming (Kafka)');
-    await expect(page.locator('.recurring li').first()).toContainText('5 / 15');
+    await expect(page.locator('.recurring li').first()).toContainText('5 / 16');
     await page.locator('[data-project-filter="finance"]').click();
     await expect(page.locator('#project-count')).toHaveText('4 selected engagements');
   });
