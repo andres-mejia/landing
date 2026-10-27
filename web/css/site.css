@@ -431,6 +431,7 @@ summary h3{font-size:17px;letter-spacing:-.025em;flex:1;transition:transform .35
 .client-more{margin-top:26px;font-size:13px;color:var(--text-3)}
 .milestone-links{display:flex;flex-wrap:wrap;gap:6px 18px;margin-top:12px;font-size:13px;color:var(--accent-label)}
 .milestone-links a:hover,.milestone-links a:focus-visible{color:var(--accent);text-decoration:underline}
+.lifecycle{background:var(--sec-3)}
 .lifecycle-heading{max-width:660px}
 .lifecycle-board{position:relative;margin-top:60px}
 .lifecycle-track{position:absolute;left:0;right:0;top:15px;height:1px;background:var(--line-strong);pointer-events:none}
@@ -624,7 +625,8 @@ footer>a:last-child:hover{border-color:var(--accent);transform:translateY(-3px)}
   .lifecycle-return-label{margin-top:22px;padding-left:30px;text-align:left}
   .lifecycle-accelerators{grid-template-columns:1fr}
   .accelerator--rag,.accelerator--agents,.accelerator--mcp{grid-column:auto;grid-row:auto;margin-left:0}
-  .accelerator-span{display:inline;margin-left:auto;color:var(--text-4);white-space:nowrap}
+  .accelerator{flex-wrap:wrap}
+  .accelerator-span{display:block;flex-basis:100%;color:var(--text-4)}
   .lifecycle-detail{grid-template-columns:1fr}
   .lifecycle.is-interactive .lifecycle-detail li.is-selected{grid-template-columns:1fr;gap:10px}
 }
