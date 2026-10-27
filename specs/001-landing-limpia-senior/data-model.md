@@ -28,7 +28,7 @@ Valores tras el cambio: 16 experiencias (Belcorp, proyecto de ML en Perú, añad
 | Cloud y plataformas | AWS · Azure · OpenShift · Terraform · Argo CD | Indra/Minsait · Beabloo, SCRM, Reale Seguros, FENORA |
 | Eventos e integración | Kafka · Debezium (CDC) · Azure Event Hubs · Apache Camel · MQTT | Umivale, SCRM, Santa Lucía, Onesait Efficiency |
 | Datos | Databricks · Data Lake · MongoDB · Oracle · Apache NiFi | Beabloo, Umivale, Onesait Efficiency |
-| Ingeniería con IA | RAG · MCP · LangChain / LlamaIndex · Python / ML · UiPath | FENORA, PFS Group |
+| Ingeniería con IA | RAG · MCP · LangChain / LlamaIndex · Python / ML · Amazon Bedrock | FENORA, Belcorp, PFS Group |
 | Arquitectura e identidad | DDD · Hexagonal · CQRS · OAuth 2.0 / JWT · Keycloak | Santander, Santa Lucía, Mercadona, Iberia, INE Chile |
 
 Go se retiró a petición de Andrés el 2026-10-26: no tenía proyecto en la página (research R1). El área queda con 4 tecnologías y 29 en total.
