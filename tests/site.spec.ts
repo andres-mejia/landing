@@ -223,6 +223,21 @@ test.describe('cifras', () => {
   });
 });
 
+test.describe('trayectoria', () => {
+  test('4 hitos con sus periodos, liderazgo e idiomas en los dos idiomas', async ({ page }) => {
+    await open(page);
+    const milestones = page.locator('#trayectoria .milestone');
+    await expect(milestones).toHaveCount(4);
+    expect(await milestones.locator('h3').allTextContents()).toEqual(['Team Cloud', 'PFS Group', 'FENORA', 'Tekhos']);
+    expect(await milestones.locator('.milestone-period').allTextContents()).toEqual(['2012 – 2021', '2019 – 2024', 'Since 2025', 'Since 2026']);
+    await expect(page.locator('#trayectoria .leadership')).toContainText('up to 12 people');
+    await expect(page.locator('.main-nav a[href="#trayectoria"]')).toHaveText('Track record');
+    await page.locator('[data-language="es"]').click();
+    await expect(milestones.locator('.milestone-period').nth(2)).toHaveText('Desde 2025');
+    await expect(page.locator('#trayectoria .languages dd')).toHaveText('Español (nativo) · Inglés (nivel profesional)');
+  });
+});
+
 test.describe('mapa de países', () => {
   test('un punto por país, en el orden de la leyenda, y vivo solo en pantalla', async ({ page }) => {
     await page.setViewportSize({ width: 1440, height: 900 });
