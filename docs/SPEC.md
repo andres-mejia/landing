@@ -8,22 +8,25 @@ Que un decisor técnico entienda en un minuto qué aporta Andrés, lo compruebe 
 
 ## 2. Arquitectura de página
 
-Una sola página con anclas. Orden de secciones:
+Una sola página con anclas. Orden de secciones tras la spec 001 (2026-10-27):
 
-| # | Sección | Ancla | Contenido |
-|---|---|---|---|
-| — | Header | — | Wordmark `am_`, navegación, selector EN/ES, cambio de tema, "Let's talk", menú móvil y barra de lectura |
-| 01 | Hero | `#inicio` | H1 en cuatro líneas, intro, CTA, dos datos ("20+", "Hands-on"), retrato y canvas de topología |
-| — | Contextos | — | Organizaciones de proyectos seleccionados, en texto |
-| — | KPIs | — | Banda de 6 cifras verificables y países por región |
-| 02 | Expertise | `#enfoque` | Cuatro especialidades en `<details>` |
-| 03 | Pipeline | `#factory` | Pipeline conceptual de 5 etapas con contextos RAG, MCP y harness |
-| 04 | Experiencia | `#experiencia` | Filtros, insights calculados y 16 tarjetas de proyecto con detalle desplegable |
-| 05 | Tecnología | `#technologies` | Stack en cifras y explorador de 10 disciplinas |
-| 06 | Método | — | Cuatro pasos de trabajo |
-| 07 | Sobre mí | `#sobre-mi` | Trayectoria y enlace a LinkedIn |
-| 08 | Contacto | `#contacto` | Llamada a la conversación y CTA a LinkedIn |
-| — | Footer | — | Nombre, alcance global y volver arriba |
+| Sección | Ancla | Contenido |
+|---|---|---|
+| Header | — | Wordmark `am_`, navegación (Expertise, The pipeline, Experience, Capabilities, Track record, About), EN/ES, tema, "Let's talk", menú móvil y barra de lectura |
+| Hero | `#inicio` | Etiqueta del H1, H1 en cuatro líneas, intro, CTA, "20+" y "Hands-on", retrato y canvas |
+| Contextos | — | 6 marcas con su sector debajo |
+| Evidencia | — | Banda de 4 cifras verificables (experiencias, organizaciones, países, sectores) y mapa de puntos con un punto vivo por país y leyenda por región |
+| Expertise | `#enfoque` | Cuatro especialidades en `<details>`, una frase cada una |
+| Pipeline | `#factory` | Pendiente de rediseño en la spec 002 (ciclo de vida en 7 fases) |
+| Experiencia | `#experiencia` | Filtros, insights, 16 tarjetas (6 destacadas por sector) y matriz "Clients by channel" con 30 clientes por canal |
+| Capacidades | `#capabilities` | Rejilla de 6 áreas con hasta 5 tecnologías y los proyectos que las respaldan |
+| Trayectoria | `#trayectoria` | Carriles proporcionales 2005 a hoy con 5 etapas, marcador "Today", liderazgo e idiomas |
+| Método | — | Cuatro habilidades de impacto en una franja |
+| Sobre mí | `#sobre-mi` | Una idea y un párrafo, enlace a LinkedIn |
+| Contacto | `#contacto` | Correo `andres.mejia@tekhos.com` como acción principal y LinkedIn |
+| Footer | — | Nombre, alcance global y volver arriba |
+
+Solo el H1 lleva etiqueta encima; los H2 no (el detector y Impeccable vetan las etiquetas sobre los encabezados).
 
 ## 3. Comportamiento por zona
 

@@ -99,6 +99,10 @@ Profesional, arquitectónica, elegante y sobria. Precisión estructural, ingenie
 - La rama de `prefers-reduced-motion` se escribe primero: contenido visible y nada en movimiento.
 - Lo que no se ve se pausa (canvas del hero y pipeline fuera de pantalla o con la pestaña oculta).
 
-## Línea base del detector (2026-10-25)
+## Línea base del detector
+
+- **2026-10-27, cierre de la spec 001: 76 avisos.** Se corrigieron el texto mono por debajo de 12 px en las zonas tocadas, las etiquetas sobre los H2, los números de las especialidades y los separadores laterales. Quedan sobre todo el texto pequeño del pipeline y la cabecera (spec 002), brillos y la retícula del hero.
+
+### Línea base inicial (2026-10-25)
 
 `impeccable detect` sobre `dist/` da 221 avisos en la versión que entra en el repo: texto de interfaz por debajo de 12 px (etiquetas mono de 10 px), etiquetas encima de los H2, índices numerados, brillos de color sin desplazamiento, puntos de estado que laten, el barrido del pipeline y la retícula del hero. Son decisiones de diseño heredadas: su revisión es una tarea de M1 y cada excepción la acepta Andrés de forma explícita en `CLAUDE.md`.

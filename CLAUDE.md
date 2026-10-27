@@ -60,6 +60,8 @@ Si Playwright no tiene navegador instalado: `npx playwright install chromium`. E
 - **Contraste AA:** en el tema claro, `--accent` es `#A24A28`. El óxido de marca `#B5502B` no llega a 4.5:1 sobre las superficies alternas y solo se usa en gráficos (`--d1`).
 - **CSP estricta (`customHttp.yml`):** `script-src 'self'` y `style-src 'self'`. Nada de `<script>` ni `<style>` en línea ni atributos `style="..."` en el marcado. El JS solo toca estilos vía CSSOM (`element.style.setProperty`), que la CSP permite. Los tests sirven `dist/` con esa CSP: una violación es un test rojo.
 - **Pipeline:** dos SVG, horizontal (≥861px) y vertical (≤860px, sin scroll horizontal). Comparten `data-station`. Solo el SVG visible ejecuta su animación SMIL.
+- **Evidencia de las cifras:** la matriz "Clients by channel" (30 clientes por canal) es la evidencia de organizaciones (38) y sectores (16); la leyenda por región, la de países (16). Solo se enlazan socios y empresas donde trabajó Andrés, nunca clientes finales.
+- **Mapa y trayectoria:** el mapa (`web/assets/world-dots.svg`, `npm run build:map`) y la trayectoria en carriles se colocan por CSSOM desde `experience.js` (`data-start`/`data-end`, coordenadas del país); sus puntos vivos solo laten en pantalla.
 - **Cifras verificables (ADR-003):** cada cifra lleva `data-items` con lo que cuenta. El build comprueba que el número coincide con la lista y que cada elemento aparece en el contenido fuera de la propia cifra (coincidencia de token completo). Los insights de Experiencia los calcula `experience.js` a partir de las tarjetas.
 
 ## Flujo de trabajo: Spec Kit e issues
@@ -98,7 +100,7 @@ Si Playwright no tiene navegador instalado: `npx playwright install chromium`. E
 
 ## Excepciones del detector
 
-- **Línea base (2026-10-25):** 221 avisos en la landing heredada (texto mono por debajo de 12 px, etiquetas sobre los H2, índices numerados, brillos de color, puntos que laten, barrido del pipeline y retícula del hero). Detalle en `DESIGN.md`.
+- **Línea base:** 76 avisos al cerrar la spec 001 (2026-10-27); 221 en la landing heredada (2026-10-25). Detalle en `DESIGN.md`.
 - **Ninguna excepción aceptada todavía.** Su revisión es tarea de M1: Andrés decide qué se corrige y qué se acepta, y lo aceptado se lista aquí con su motivo.
 - Mientras tanto, un cambio no puede añadir avisos nuevos respecto a la línea base.
 
