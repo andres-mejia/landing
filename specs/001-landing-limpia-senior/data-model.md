@@ -48,6 +48,7 @@ Go se retiró a petición de Andrés el 2026-10-26: no tenía proyecto en la pá
 
 | Periodo | Organización | Rol | Línea (datos de Andrés) |
 |---|---|---|---|
+| 2005–2012 | Pragma SA, Assist Consultores, Nexos Software (Colombia) | De desarrollador full-stack a Team Leader y Software Architect | Proyectos para aseguradoras, fintech, telecomunicaciones e industria, sobre todo con Java, .NET y PHP |
 | 2012–2021 | Team Cloud (Colombia) | Fundador y CTO | Primera empresa: consultoría y desarrollo a medida para empresas nacionales y europeas; vendida en 2021 |
 | 2019–2024 | PFS Group | Chief Software Architect | Productos SaaS, prácticas de ingeniería compartidas y bases reutilizables |
 | 2025– | FENORA | Fundador | Producto SaaS propio de Open Banking e IA; lanzamiento en producción previsto en diciembre de 2026 |

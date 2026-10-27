@@ -41,7 +41,7 @@ Fase 0 de `/speckit-plan`. No quedan `NEEDS CLARIFICATION` en el contexto técni
 
 ## R7. Presupuesto de texto verificable
 
-- **Decision:** test de Playwright que cuenta las palabras de `<main>` en inglés, en total (incluido lo plegable) y visibles sin desplegar, y exige ≤ 1.200 en total y ≤ 1.000 visibles (SC-001). Se registra el valor real en el informe de revisión.
+- **Decision:** test de Playwright que cuenta las palabras de `<main>` en inglés, en total (incluido lo plegable) y visibles sin desplegar, y exige ≤ 1.300 en total y ≤ 1.100 visibles (SC-001). Se registra el valor real en el informe de revisión.
 - **Rationale:** convierte un objetivo editorial en una regresión automática.
 - **Alternatives considered:** contarlo a mano en cada revisión (se olvida).
 

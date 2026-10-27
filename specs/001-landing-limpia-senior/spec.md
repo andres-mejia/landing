@@ -16,6 +16,8 @@
 - Q: ¿Cuántas cifras tiene la banda principal? → A: 4 (experiencias, organizaciones, países y sectores).
 - Q: ¿Cuántos proyectos se destacan? → A: 6, uno por sector principal.
 - Petición de Andrés (2026-10-26): sustituir las etiquetas de países por un mapa global estilizado y dinámico con puntos vivos (FR-006b, T018). También retirar Go de las capacidades.
+- Objetivos de texto (2026-10-27): Andrés los sube a 1.300 en total y 1.100 visibles, porque la trayectoria, Belcorp y el pipeline intacto añaden texto que quiere conservar.
+- Primeros años (2026-10-27): hito 2005–2012 en Pragma SA, Assist Consultores y Nexos Software (FR-014).
 - Corrección de medida (2026-10-26, T002): la línea base de 2.340 palabras contaba también atributos y paneles ocultos con otro método. Medido con el test de presupuesto: 1.808 en total y 1.153 visibles. Los objetivos de FR-001 y SC-001 se ajustan a esa medida.
 
 ## Contexto
@@ -117,7 +119,7 @@ El visitante interesado puede escribir a `andres.mejia@tekhos.com` o conectar en
 
 **Mensaje y estructura**
 
-- **FR-001**: La página MUST reducir su texto total (incluido lo plegable) al menos un tercio respecto a la versión del 2026-10-26, y el texto visible sin desplegar MUST NOT crecer por encima de 1.000 palabras, sin perder ninguna cifra verificable ni su evidencia.
+- **FR-001**: La página MUST reducir su texto total (incluido lo plegable) a 1.300 palabras o menos y el texto visible sin desplegar a 1.100 o menos, sin perder ninguna cifra verificable ni su evidencia.
 - **FR-002**: La página MUST mantener el titular de arquitecto de software independiente y no presentar Tekhos como marca de la página (ADR-005).
 - **FR-003**: Cada sección MUST tener un único mensaje principal; los detalles secundarios quedan en elementos desplegables.
 - **FR-004**: La sección del pipeline MUST conservarse tal cual en este refinamiento (contenido, etapas, contextos y animación). Su simplificación queda para una iteración posterior.
@@ -143,7 +145,7 @@ El visitante interesado puede escribir a `andres.mejia@tekhos.com` o conectar en
 **Liderazgo y trayectoria**
 
 - **FR-013**: La página MUST incluir el liderazgo de equipos de hasta 12 personas como Team Leader y Architecture Lead.
-- **FR-014**: La página MUST incluir la trayectoria empresarial: fundador y CTO de Team Cloud (Colombia, 2012–2021, vendida en 2021) y fundador y CEO de Tekhos (en construcción), presentada como continuación de la visión de Team Cloud.
+- **FR-014**: La página MUST incluir los primeros años (2005–2012: de desarrollador full-stack a Team Leader y Software Architect en Pragma SA, Assist Consultores y Nexos Software, en Colombia) y la trayectoria empresarial: fundador y CTO de Team Cloud (Colombia, 2012–2021, vendida en 2021) y fundador y CEO de Tekhos (en construcción), presentada como continuación de la visión de Team Cloud.
 - **FR-015**: La página MUST incluir los idiomas: "Spanish (native) · English (professional working proficiency)" y su equivalente en español.
 - **FR-016**: La página MUST destacar las habilidades que generan impacto en los proyectos (proactividad, decisiones explícitas, acompañamiento hasta producción, transferencia de conocimiento) sin adjetivos sin respaldo.
 
@@ -170,7 +172,7 @@ El visitante interesado puede escribir a `andres.mejia@tekhos.com` o conectar en
 
 ### Measurable Outcomes
 
-- **SC-001**: El texto de `<main>` en inglés baja de 1.808 palabras en total a 1.200 o menos, y el visible sin desplegar (1.153 hoy) queda en 1.000 o menos, con la misma proporción en español (el pipeline, que se conserva, cuenta dentro de esos totales).
+- **SC-001**: El texto de `<main>` en inglés baja de 1.808 palabras en total a 1.300 o menos, y el visible sin desplegar (1.153 al empezar) queda en 1.100 o menos, con la misma proporción en español (el pipeline, que se conserva, cuenta dentro de esos totales).
 - **SC-002**: Las tecnologías nombradas en la sección de capacidades bajan de 129 a 30 o menos.
 - **SC-003**: En una prueba de 60 segundos con al menos 3 personas del perfil objetivo, todas describen a Andrés como senior, mencionan liderazgo y citan al menos dos sectores.
 - **SC-004**: El 100 % de las cifras visibles pasa la validación de evidencia y el 100 % de los textos tiene versión en español.

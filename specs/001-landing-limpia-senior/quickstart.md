@@ -24,9 +24,9 @@ Qué tiene que pasar, además de lo que ya cubría la suite:
 | Banda de cifras | 4 valores: 16, 18, 16, 9; países por región suman 16 | FR-005 |
 | Capacidades | 6 áreas; ninguna con más de 5 tecnologías; 30 o menos en total | FR-007, FR-008, SC-002 |
 | Experiencia | Las 6 primeras tarjetas visibles son las destacadas y en el orden del [data-model](../data-model.md); filtro de banca sigue en 4 | FR-010 |
-| Trayectoria | 4 hitos con periodo: 2012–2021, 2019–2024, 2025–, 2026– | FR-014 |
+| Trayectoria | 5 hitos con periodo: 2005–2012, 2012–2021, 2019–2024, desde 2025, desde 2026 | FR-014 |
 | Contacto | Enlace `mailto:andres.mejia@tekhos.com` y LinkedIn | FR-017 |
-| Presupuesto de texto | ≤ 1.200 palabras en total y ≤ 1.000 visibles en `<main>` en EN | SC-001 |
+| Presupuesto de texto | ≤ 1.300 palabras en total y ≤ 1.100 visibles en `<main>` en EN | SC-001 |
 | Español | Sin restos en inglés tras recorrer filtros, pipeline y expansión | FR-020 |
 | Movimiento reducido y sin JS | Trayectoria, capacidades y destacados visibles | FR-021 |
 
