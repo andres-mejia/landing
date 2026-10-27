@@ -372,11 +372,12 @@ html[lang=es] .hero-facts>div:nth-child(2) strong{font-size:16px}
 
 /* ---------- Trust strip ---------- */
 .trust{display:grid;grid-template-columns:150px 1fr;gap:12px 40px;align-items:center;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding-top:28px;padding-bottom:28px}
-.trust>.mono{color:var(--text-4);font-size:9px;text-transform:uppercase;max-width:140px}
-.trust>div{display:flex;align-items:center;flex-wrap:wrap;justify-content:space-between;gap:18px 32px}
-.trust>div>span{font-size:19px;font-weight:500;letter-spacing:-.04em;color:var(--text-2);transition:color .3s}
-.trust>div>span:hover{color:var(--text)}
-.trust-caption{grid-column:2;font-size:10px;color:var(--text-4);transition:color .2s}
+.trust>.mono{color:var(--text-4);font-size:12px;text-transform:uppercase;max-width:140px}
+.trust-list{list-style:none;margin:0;padding:0;display:flex;align-items:flex-start;flex-wrap:wrap;justify-content:space-between;gap:18px 32px}
+.trust-name{display:block;font-size:19px;font-weight:500;letter-spacing:-.04em;color:var(--text-2);transition:color .3s}
+.trust-list li:hover .trust-name{color:var(--text)}
+.trust-industry{display:block;margin-top:4px;font-size:12px;color:var(--text-4)}
+.trust-caption{grid-column:2;font-size:12px;color:var(--text-4);transition:color .2s}
 .trust-caption:hover{color:var(--accent)}
 .trust-caption span{margin-left:10px}
 
@@ -626,10 +627,6 @@ html[lang=es] .svg-label{font-size:13px}
 .project-more span{margin-left:24px;color:var(--accent);display:inline-block;transition:transform .3s var(--ease)}
 .project-more:hover{background:var(--hover-tint);border-color:var(--accent)}
 .project-more:hover span{transform:translateY(3px)}
-.consulting-context{display:grid;grid-template-columns:1fr 2fr;gap:50px;margin-top:48px;padding-top:30px;border-top:1px solid var(--grid-gap)}
-.consulting-context>.mono{color:var(--accent-label);font-size:9px;text-transform:uppercase}
-.consulting-context>p:last-child{font-size:13px;color:var(--text-3);line-height:1.9;max-width:650px}
-.consulting-context strong{font-weight:500;color:var(--text)}
 .experience-note{font-size:10px;line-height:1.8;margin-top:24px;max-width:720px;color:var(--text-4)}
 
 /* ---------- Technology ---------- */
@@ -646,6 +643,19 @@ html[lang=es] .svg-label{font-size:13px}
 .technology-note{margin-top:24px;font-size:13px;color:var(--text-3)}
 
 /* ---------- Method ---------- */
+.client-matrix{margin-top:48px;padding-top:28px;border-top:1px solid var(--grid-gap)}
+.client-matrix-title{font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--accent-label)}
+.channels{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:28px;margin-top:24px}
+.channel{min-width:0}
+.channel-name{display:flex;align-items:flex-end;min-height:46px;font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--text-4);padding-bottom:12px;margin-bottom:14px;border-bottom:1px solid var(--line)}
+.channel-name a,.milestone-links a{color:inherit;text-decoration:none;text-underline-offset:3px;transition:color .25s}
+.channel-name a:hover,.channel-name a:focus-visible{color:var(--accent);text-decoration:underline}
+.channel ul{list-style:none;margin:0;padding:0;display:grid;gap:11px}
+.client-name{display:block;font-size:14px;line-height:1.35;color:var(--text)}
+.client-industry{display:block;margin-top:2px;font-size:12px;line-height:1.4;color:var(--text-3)}
+.client-more{margin-top:26px;font-size:13px;color:var(--text-3)}
+.milestone-links{display:flex;flex-wrap:wrap;gap:6px 18px;margin-top:12px;font-size:13px;color:var(--accent-label)}
+.milestone-links a:hover,.milestone-links a:focus-visible{color:var(--accent);text-decoration:underline}
 .journey-section{border-top:1px solid var(--line)}
 .journey-chart{--meta:300px;--gap:56px;position:relative;margin-top:56px}
 .journey{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
@@ -778,7 +788,7 @@ footer>a:last-child:hover{border-color:var(--accent);transform:translateY(-3px)}
   .nav-contact span{margin-left:9px}
   .project-gallery{grid-template-columns:repeat(2,minmax(0,1fr))}
   .engagement{padding:27px}
-  .trust>div{justify-content:flex-start;gap:15px 24px}
+  .trust-list{justify-content:flex-start;gap:15px 24px}
   .experience-intro{gap:6%}
 }
 @media(max-width:1100px){
@@ -791,7 +801,7 @@ footer>a:last-child:hover{border-color:var(--accent);transform:translateY(-3px)}
   .hero-facts{gap:20px}
   .hero-facts>div+div{padding-left:20px}
   .trust{gap:12px 30px}
-  .trust>div>span{font-size:17px}
+  .trust-name{font-size:17px}
   .expertise{gap:6%;grid-template-columns:1fr 1.1fr}
   .section-heading h2{font-size:40px}
   .method-grid{gap:20px}
@@ -859,9 +869,9 @@ footer>a:last-child:hover{border-color:var(--accent);transform:translateY(-3px)}
   .hero-bottom>a span{font-size:16px}
   .trust{display:block;padding-top:24px;padding-bottom:24px}
   .trust>.mono{display:block;max-width:none;margin-bottom:12px}
-  .trust>div{gap:12px 24px;margin:18px 0;justify-content:flex-start}
-  .trust>div>span{font-size:19px}
-  .trust-caption{font-size:10px;line-height:1.8;display:block}
+  .trust-list{gap:14px 24px;margin:18px 0;justify-content:flex-start}
+  .trust-name{font-size:19px}
+  .trust-caption{font-size:12px;line-height:1.8;display:block}
   .expertise{display:block}
   .section-heading h2{font-size:38px}
   .section-heading>p:last-child:not(.eyebrow){font-size:13px}
@@ -908,8 +918,6 @@ footer>a:last-child:hover{border-color:var(--accent);transform:translateY(-3px)}
   .engagement h3{font-size:27px;margin-top:14px;max-width:100%}
   .engagement-summary,.project-detail>div{font-size:13px}
   .project-detail summary{font-size:12px;min-height:48px}
-  .consulting-context{display:block;margin-top:32px}
-  .consulting-context>p:last-child{margin-top:14px}
   .technology-note{font-size:12px;line-height:1.8}
   .method-grid{grid-template-columns:1fr 1fr;gap:32px 24px;margin-top:35px}
   .method-grid h3{font-size:16px}
@@ -935,6 +943,7 @@ footer>a:last-child:hover{border-color:var(--accent);transform:translateY(-3px)}
   .world-map .pin-core{r:10px}
   .world-map .pin-pulse{r:11px}
   .journey-chart{--meta:230px;--gap:36px}
+  .channels{grid-template-columns:repeat(3,minmax(0,1fr));row-gap:34px}
   .regions{grid-template-columns:repeat(3,minmax(0,1fr))}
   .capabilities{grid-template-columns:repeat(2,minmax(0,1fr))}
   .kpi:nth-child(odd){border-left:0;padding-left:0}
@@ -962,6 +971,7 @@ footer>a:last-child:hover{border-color:var(--accent);transform:translateY(-3px)}
   .world-map .pin-core{r:15px}
   .world-map .pin-pulse{r:16px}
   .journey-chart{--meta:0px;--gap:0px;margin-top:36px}
+  .channels{grid-template-columns:repeat(2,minmax(0,1fr));gap:30px 20px}
   .js .journey-now{border-left-color:transparent}
   .journey-now-label{top:5px;bottom:auto;right:14px;transform:none}
   .journey-axis span:last-child{display:none}

@@ -202,7 +202,7 @@ test.describe('cifras', () => {
     await scrollThrough(page);
     await page.waitForTimeout(1800);
     const kpis = await page.locator('.kpi [data-count-to]').allTextContents();
-    expect(kpis).toEqual(['16', '18', '16', '9']);
+    expect(kpis).toEqual(['16', '38', '16', '16']);
     expect(await page.locator('.region li').count()).toBe(16);
     expect(await page.locator('.engagement').count()).toBe(16);
     await expect(page.locator('.recurring li').first()).toContainText('Event streaming (Kafka)');
@@ -232,6 +232,19 @@ test.describe('experiencia', () => {
     for (const tags of await page.locator('.engagement').evaluateAll((els) => els.map((el) => el.querySelectorAll('.engagement-tags li').length))) {
       expect(tags).toBeLessThanOrEqual(4);
     }
+  });
+});
+
+test.describe('cartera de clientes', () => {
+  test('30 clientes en 5 canales, con enlaces solo a los socios', async ({ page }) => {
+    await open(page);
+    await expect(page.locator('.channel')).toHaveCount(5);
+    await expect(page.locator('.channel li')).toHaveCount(30);
+    for (const link of await page.locator('.channel-name a, .milestone-links a').all()) {
+      await expect(link).toHaveAttribute('target', '_blank');
+      await expect(link).toHaveAttribute('rel', 'noopener noreferrer');
+    }
+    expect(await page.locator('.channel li a').count()).toBe(0);
   });
 });
 
