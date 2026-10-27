@@ -377,8 +377,9 @@ test.describe('accesibilidad (axe)', () => {
 test.describe('presupuesto de texto', () => {
   test.use({ reducedMotion: 'reduce' });
   // SC-001 de la spec 001: palabras de <main> en inglés (total, incluido lo plegable); se anotan también las visibles sin desplegar.
-  // Cierre de la spec 001 (2026-10-27): 1.610 en total y 1.365 visibles medidos, con un 2 % de margen. La spec 002 los baja.
-  const WORD_BUDGET: { total: number; visible: number } | null = { total: 1640, visible: 1390 };
+  // Cierre de la spec 001 (2026-10-27): 1.610 y 1.365 medidos con un 2 % de margen; después, la spec 002 y la franja
+  // "Day to day" que pidió Andrés dejan 1.654 y 1.409, con el mismo margen.
+  const WORD_BUDGET: { total: number; visible: number } | null = { total: 1690, visible: 1440 };
   test('palabras de la página en inglés', async ({ page }) => {
     await page.setViewportSize({ width: 1440, height: 900 });
     await open(page);

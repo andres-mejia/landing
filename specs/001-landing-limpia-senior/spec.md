@@ -17,6 +17,7 @@
 - Q: ¿Cuántos proyectos se destacan? → A: 6, uno por sector principal.
 - Petición de Andrés (2026-10-26): sustituir las etiquetas de países por un mapa global estilizado y dinámico con puntos vivos (FR-006b, T018). También retirar Go de las capacidades.
 - Timeline (2026-10-27): Andrés elige carriles proporcionales frente a una línea ligada al scroll o un selector por año (FR-014b, T019).
+- Prácticas (2026-10-27): Andrés pide una franja "Day to day" en el método con lo que usa a diario sin certificarse (Scrum y Kanban, TOGAF como referencia, seguridad alineada con ISO 27001, PSD2, RGPD / PII, OAuth 2.0, OpenID Connect, OpenAPI). El presupuesto pasa a 1.690 en total y 1.440 visibles.
 - Cierre del presupuesto (2026-10-27): Andrés acepta que el objetivo de cierre de la spec 001 sea el valor medido tras el bloque 4; la reducción grande se hace en el rediseño del pipeline (spec 002).
 - Objetivos de texto (2026-10-27): Andrés los sube a 1.300 en total y 1.100 visibles, porque la trayectoria, Belcorp y el pipeline intacto añaden texto que quiere conservar.
 - Primeros años (2026-10-27): hito 2005–2012 en Pragma SA, Assist Consultores y Nexos Software (FR-014).
