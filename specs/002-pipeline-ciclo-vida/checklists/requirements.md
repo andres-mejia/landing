@@ -13,7 +13,7 @@
 
 ## Requirement Completeness
 
-- [ ] No [NEEDS CLARIFICATION] markers remain
+- [x] No [NEEDS CLARIFICATION] markers remain
 - [x] Requirements are testable and unambiguous
 - [x] Success criteria are measurable
 - [x] Success criteria are technology-agnostic (no implementation details)
@@ -31,6 +31,6 @@
 
 ## Notes
 
-- Queda 1 marcador (FR-003): el cambio real de FENORA y sus 7 artefactos, borrador en `design-brief.md`, pendiente de Andrés.
+- FR-003 resuelto con Andrés el 2026-10-27: el borrador del brief es fiel; sin nombres de agregador ni bancos.
 - FR-011 y FR-012 nombran la CSP y el detector a propósito: son gates de la constitución.
 - "SVG" aparece en Assumptions como contexto de cómo se dibuja, no como requisito.

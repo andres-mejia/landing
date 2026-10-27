@@ -10,7 +10,7 @@ Decisiones de Andrés del 2026-10-27. Entrada de `/speckit-plan` para la spec 00
 5. **Interacción:** recorrido automático al entrar en pantalla (pausa fuera de ella), selección de fase con ratón, toque o teclado que detiene el recorrido; en móvil, estaciones apiladas en vertical con la línea a la izquierda. Movimiento reducido: todo visible y estático.
 6. **Restricciones:** CSP `'self'`, AA, EN/ES, sin vocabulario vetado, sin avisos nuevos del detector, máximo 200 palabras.
 
-## Borrador del ejemplo de FENORA (pendiente de confirmar por Andrés)
+## Ejemplo de FENORA (confirmado por Andrés el 2026-10-27; sin nombrar agregador ni bancos)
 
 Cambio: **conectar un banco nuevo por Open Banking (PSD2)**.
 
