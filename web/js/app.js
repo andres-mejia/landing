@@ -1,5 +1,5 @@
 /* Site behaviour: theme, header, navigation, reveals, micro-interactions and the
-   conceptual delivery pipeline. Every effect degrades to static content under
+   software lifecycle. Every effect degrades to static content under
    prefers-reduced-motion; nothing here is required to read the page. */
 (()=>{
  'use strict';
@@ -193,121 +193,32 @@
   });
  }
 
- /* ---------- Conceptual delivery pipeline ---------- */
- const stages=[
-  {number:'01 / FRAME THE PROBLEM',title:'Start with the right question.',description:'Understand business goals, constraints and the existing system. Define what success means before selecting the tools.',kind:'discovery',artifacts:['Problem statement & constraints','System context & stakeholder map','Measurable acceptance criteria']},
-  {number:'02 / DESIGN THE SYSTEM',title:'Make the trade-offs explicit.',description:'Choose boundaries, contracts and failure strategies that fit the context. Document decisions so the team can challenge and evolve them.',kind:'architecture',artifacts:['Architecture decision records','API & event contracts','Delivery roadmap & risk map']},
-  {number:'03 / CONTEXT-AWARE ENGINEERING',title:'Build with context and control.',description:'RAG retrieves relevant project knowledge. MCP connects tools and resources. An agent harness coordinates execution, state and recovery around the engineering work.',kind:'implementation',artifacts:['Versioned code & reviewed changes','Tool contracts & execution boundaries','Context and progress checkpoints']},
-  {number:'04 / VERIFY THE OUTCOME',title:'Evidence before confidence.',description:'Exercise the implementation with tests, contract checks and AI evaluations. Feed failures back into the next change, with human review where it matters.',kind:'verification',artifacts:['Automated tests & contract checks','Evaluation results & traceable feedback','Reviewable release evidence']},
-  {number:'05 / SHIP & LEARN',title:'Delivery is the start of feedback.',description:'Package and deploy through CI/CD, with infrastructure as code, observability and a rollback strategy. Production feedback informs the next architectural decision.',kind:'delivery',artifacts:['Versioned release & infrastructure','Deployment and rollback paths','Logs, metrics & distributed traces']}
- ];
- const contexts={
-  rag:{title:'RAG · Retrieval-augmented generation',description:'Retrieve relevant knowledge from documentation, ADRs or a codebase and supply it as context for the model. The retrieval quality and source material both matter.'},
-  mcp:{title:'MCP · Model Context Protocol',description:'Connect an AI application to servers that expose tools, resources and prompts. Keep tool access and execution boundaries explicit.'},
-  harness:{title:'Agent harness · The execution environment',description:'Coordinate the model, tools, execution loop, progress and recovery. Tests and checkpoints make work inspectable across longer tasks.'}
- };
- const STAGE_MS=3800,HOLD_MS=20000;
- const factory=$('#factory');
- const factorySvgs=$$('.factory-svg');
- const horizontalSvg=$('.factory-svg--h');
- const viewport=$('.factory-viewport');
- const stageStrip=$('.stage-buttons');
- const stageButtons=$$('[data-stage]');
- const stations=$$('[data-station]');
- const contextButtons=$$('[data-context]');
- const inspector=$('.factory-inspector');
- const explanation=$('#context-explanation');
- const announcement=$('#pipeline-announcement');
- let stageIndex=0,paused=reducedMotion.matches,inView=false,timer=null,holdUntil=0;
- root.style.setProperty('--stage-ms',STAGE_MS+'ms');
-
- const isRunning=()=>!paused&&inView&&!document.hidden;
- function swap(element){element.classList.remove('is-swapping');void element.offsetWidth;element.classList.add('is-swapping')}
- function restartProgress(){
-  stageButtons.forEach(button=>button.classList.remove('is-cycling'));
-  if(!isRunning()||Date.now()<holdUntil)return;
-  const button=stageButtons[stageIndex];
-  void button.offsetWidth;
-  button.classList.add('is-cycling');
+ /* ---------- Software lifecycle: one real change through seven phases ----------
+    Without JS, or with reduced motion, every phase and its detail stay visible.
+    With motion, the panel shows the selected phase only. */
+ const lifecycle=$('#factory');
+ if(lifecycle){
+  const buttons=$$('.phase-button',lifecycle);
+  const phases=$$('.phase',lifecycle);
+  const details=$$('.lifecycle-detail li',lifecycle);
+  let selected=0;
+  const select=(index,focus=false)=>{
+   selected=index;
+   buttons.forEach((b,i)=>b.setAttribute('aria-pressed',String(i===index)));
+   phases.forEach((p,i)=>p.classList.toggle('is-selected',i===index));
+   details.forEach((d,i)=>d.classList.toggle('is-selected',i===index));
+   if(focus)buttons[index].focus();
+  };
+  buttons.forEach((button,i)=>button.addEventListener('click',()=>{select(i);lifecycle.dispatchEvent(new CustomEvent('phase-select'))}));
+  $('.lifecycle-phases',lifecycle).addEventListener('keydown',event=>{
+   const delta={ArrowRight:1,ArrowDown:1,ArrowLeft:-1,ArrowUp:-1}[event.key];
+   if(!delta)return;
+   event.preventDefault();
+   select((selected+delta+buttons.length)%buttons.length,true);
+   lifecycle.dispatchEvent(new CustomEvent('phase-select'));
+  });
+  if(motionAllowed())lifecycle.classList.add('is-interactive');
+  select(0);
+  window.siteLifecycle={select,phases,lifecycle};
  }
- function centreStrip(button){
-  if(stageStrip.scrollWidth<=stageStrip.clientWidth)return;
-  stageStrip.scrollTo({left:button.offsetLeft-(stageStrip.clientWidth-button.offsetWidth)/2,behavior:paused?'instant':'smooth'});
- }
- function resetContext(){
-  contextButtons.forEach(b=>b.setAttribute('aria-pressed','false'));
-  delete factory.dataset.context;
-  explanation.textContent='Select RAG, MCP or Harness to explore the AI engineering layer.';
- }
- function selectStage(index,manual=false){
-  const changed=index!==stageIndex||manual;
-  stageIndex=index;const stage=stages[index];
-  stageButtons.forEach((b,i)=>b.setAttribute('aria-pressed',String(i===index)));
-  stations.forEach(s=>s.classList.toggle('is-active',Number(s.dataset.station)===index));
-  $('#stage-number').textContent=stage.number;
-  $('#stage-title').textContent=stage.title;
-  $('#stage-description').textContent=stage.description;
-  $('#artifact-kind').textContent=stage.kind;
-  $('#stage-artifacts').replaceChildren(...stage.artifacts.map(text=>{const li=document.createElement('li');li.textContent=text;return li}));
-  factory.dataset.activeStage=String(index);
-  if(index!==2)resetContext();
-  if(changed&&motionAllowed()){
-   swap(inspector);
-   requestAnimationFrame(()=>{decode($('#stage-number'),520);decode($('#artifact-kind'),420)});
-  }
-  centreStrip(stageButtons[index]);
-  if(manual){
-   announcement.textContent=stage.title;
-   if(viewport.scrollWidth>viewport.clientWidth+1){
-    const stationX=(110+index*225)/1120*horizontalSvg.getBoundingClientRect().width;
-    viewport.scrollTo({left:Math.max(0,stationX-viewport.clientWidth/2),behavior:paused?'instant':'smooth'});
-   }
-  }
-  restartProgress();
- }
- function schedule(){
-  clearTimeout(timer);timer=null;
-  const running=isRunning();
-  factory.dataset.factoryRunning=String(running);
-  if(running){
-   timer=setTimeout(()=>{if(Date.now()>=holdUntil)selectStage((stageIndex+1)%stages.length);schedule()},STAGE_MS);
-  }
-  /* Only the SVG on screen (horizontal ≥761px, vertical below) runs its SMIL timeline */
-  factorySvgs.forEach(svg=>{if(running&&svg.getClientRects().length)svg.unpauseAnimations();else svg.pauseAnimations()});
-  restartProgress();
- }
- function setMotion(reduce){
-  paused=reduce;root.dataset.motion=paused?'paused':'running';
-  $('#pipeline-status').textContent=paused?'Reduced motion enabled':'Pipeline running';
-  schedule();
- }
- function hold(){holdUntil=Date.now()+HOLD_MS}
-
- $('.pipeline-replay').addEventListener('click',()=>{holdUntil=0;selectStage(0,true);factorySvgs.forEach(svg=>svg.setCurrentTime(0));schedule()});
- stageButtons.forEach(button=>button.addEventListener('click',()=>{hold();selectStage(Number(button.dataset.stage),true);schedule()}));
- stations.forEach(station=>station.addEventListener('click',()=>{hold();selectStage(Number(station.dataset.station),true);schedule()}));
- stageStrip.addEventListener('keydown',event=>{
-  const delta={ArrowRight:1,ArrowLeft:-1}[event.key];
-  if(!delta)return;
-  event.preventDefault();
-  const next=(stageIndex+delta+stages.length)%stages.length;
-  hold();selectStage(next,true);schedule();stageButtons[next].focus();
- });
- contextButtons.forEach(button=>button.addEventListener('click',()=>{
-  hold();selectStage(2,true);schedule();
-  contextButtons.forEach(other=>other.setAttribute('aria-pressed',String(other===button)));
-  factory.dataset.context=button.dataset.context;
-  const context=contexts[button.dataset.context];
-  const strong=document.createElement('strong');strong.textContent=context.title+'. ';
-  explanation.replaceChildren(strong,document.createTextNode(context.description));
-  if(motionAllowed())swap(explanation);
-  announcement.textContent=context.title;
- }));
- reducedMotion.addEventListener('change',event=>setMotion(event.matches));
- matchMedia('(max-width:860px)').addEventListener('change',schedule);
- document.addEventListener('visibilitychange',schedule);
- if('IntersectionObserver' in window)new IntersectionObserver(entries=>{inView=entries[0].isIntersecting;schedule()},{threshold:.12}).observe(factory);
- else inView=true;
-
- selectStage(0);setMotion(paused);
 })();

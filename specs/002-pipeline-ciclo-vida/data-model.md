@@ -5,7 +5,7 @@ Copy en inglés (fuente) con su clave ES en `translations.js`. Datos confirmados
 ## Cabecera
 
 - H2: "From the first question" / "to running in production."
-- Entradilla: "One real change from FENORA, my own product: connecting a new bank through Open Banking (PSD2), followed from plan to production."
+- Entradilla: "One real change in FENORA, my own product: connecting a new bank through Open Banking (PSD2)."
 
 ## Fase
 
@@ -23,7 +23,7 @@ Reglas: una frase corta por campo; siglas sin traducir.
 
 ## Retorno
 
-- "What production teaches goes back into the roadmap."
+- "Production feeds the next roadmap."
 
 ## Acelerador
 
@@ -31,7 +31,7 @@ Reglas: una frase corta por campo; siglas sin traducir.
 |---|---|---|
 | RAG | Project knowledge | 02, 03 |
 | Agents | Build and verification | 04, 05 |
-| MCP | Tools and environments | 04, 06, 07 |
+| MCP | Tools and environments | 04 a 07 (Build a Operate) |
 
 ## Estado (cliente)
 

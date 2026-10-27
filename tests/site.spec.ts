@@ -96,29 +96,35 @@ test.describe('maquetación', () => {
   });
 });
 
-test.describe('pipeline', () => {
-  test('vertical en móvil y tablet, sin scroll horizontal', async ({ page }) => {
-    for (const width of [320, 390, 768, 860]) {
+test.describe('ciclo de vida', () => {
+  test('7 fases con su artefacto, vertical en móvil y sin scroll horizontal', async ({ page }) => {
+    for (const width of [320, 390, 768, 860, 1440, 1920, 2560]) {
       await page.setViewportSize({ width, height: 900 });
       await open(page, { lang: 'es' });
-      await expect(page.locator('.factory-svg--v')).toBeVisible();
-      await expect(page.locator('.factory-svg--h')).toBeHidden();
-      const scrolls = await page.evaluate(() => { const v = document.querySelector('.factory-viewport')!; return v.scrollWidth > v.clientWidth + 1; });
-      expect(scrolls, `${width}px`).toBe(false);
+      await expect(page.locator('#factory .phase')).toHaveCount(7);
+      expect(await page.locator('#factory .phase-artifact').count()).toBe(7);
+      const layout = await page.evaluate(() => {
+        const items = [...document.querySelectorAll('#factory .phase')].map((el) => el.getBoundingClientRect());
+        const board = document.querySelector('#factory .lifecycle-board')!;
+        return { vertical: items[1].top > items[0].bottom - 1, overflow: document.documentElement.scrollWidth > innerWidth + 1, board: board.scrollWidth > board.clientWidth + 1 };
+      });
+      expect(layout.vertical, `${width}px`).toBe(width <= 860);
+      expect(layout.overflow || layout.board, `${width}px`).toBe(false);
     }
   });
 
-  test('horizontal en escritorio; las etapas se seleccionan', async ({ page }) => {
+  test('elegir una fase muestra su papel y su riesgo; las flechas cambian de fase', async ({ page }) => {
     await page.setViewportSize({ width: 1440, height: 900 });
     await open(page);
-    await expect(page.locator('.factory-svg--h')).toBeVisible();
     await page.locator('#factory').scrollIntoViewIfNeeded();
-    await page.locator('[data-stage="3"]').click();
-    await expect(page.locator('[data-stage="3"]')).toHaveAttribute('aria-pressed', 'true');
-    await expect(page.locator('#stage-number')).toHaveText('04 / VERIFY THE OUTCOME');
-    await page.locator('[data-context="mcp"]').click();
-    await expect(page.locator('[data-stage="2"]')).toHaveAttribute('aria-pressed', 'true');
-    await expect(page.locator('#factory')).toHaveAttribute('data-context', 'mcp');
+    await page.locator('#factory .phase-button').nth(4).click();
+    await expect(page.locator('#factory .phase-button').nth(4)).toHaveAttribute('aria-pressed', 'true');
+    await expect(page.locator('#phase-detail li.is-selected')).toContainText('Tests as a release gate.');
+    await expect(page.locator('#phase-detail li:visible')).toHaveCount(1);
+    await page.keyboard.press('ArrowRight');
+    await expect(page.locator('#factory .phase-button').nth(5)).toHaveAttribute('aria-pressed', 'true');
+    await expect(page.locator('#phase-detail li.is-selected')).toContainText('Manual deployments.');
+    await expect(page.locator('#factory .accelerator')).toHaveCount(3);
   });
 });
 
@@ -127,14 +133,14 @@ test.describe('idiomas', () => {
     await page.setViewportSize({ width: 1440, height: 900 });
     await open(page);
     await page.locator('#factory').scrollIntoViewIfNeeded();
-    await page.locator('[data-stage="3"]').click();
+    await page.locator('#factory .phase-button').nth(4).click();
     await page.locator('[data-language="es"]').click();
     await page.waitForTimeout(900);
-    await expect(page.locator('#stage-number')).toHaveText('04 / VERIFICAR EL RESULTADO');
+    await expect(page.locator('#phase-detail li.is-selected .detail-phase')).toHaveText('05 · Verificar');
     await expect(page.locator('.hero .eyebrow')).toContainText('Claridad antes que complejidad');
     await page.locator('[data-language="en"]').click();
     await page.waitForTimeout(900);
-    await expect(page.locator('#stage-number')).toHaveText('04 / VERIFY THE OUTCOME');
+    await expect(page.locator('#phase-detail li.is-selected .detail-phase')).toHaveText('05 · Verify');
     await expect(page.locator('.hero .eyebrow')).toContainText('Clarity before complexity');
     expect(await page.locator('.decode-overlay').count()).toBe(0);
   });
@@ -161,8 +167,7 @@ test.describe('idiomas', () => {
       found.forEach((t) => leftovers.add(t));
     };
     await collect();
-    for (let i = 0; i < 5; i++) { await page.locator(`[data-stage="${i}"]`).click(); await collect(); }
-    for (const c of ['rag', 'mcp', 'harness']) { await page.locator(`[data-context="${c}"]`).click(); await collect(); }
+    for (let i = 0; i < 7; i++) { await page.locator('#factory .phase-button').nth(i).click(); await collect(); }
     for (const f of ['finance', 'commerce', 'platforms', 'product', 'all']) { await page.locator(`[data-project-filter="${f}"]`).click(); await collect(); }
     await page.locator('.project-more').click();
     await collect();
@@ -308,8 +313,8 @@ test.describe('movimiento reducido', () => {
   test('todo el contenido visible y el pipeline detenido', async ({ page }) => {
     await open(page);
     expect(await page.locator('[data-reveal="waiting"]').count()).toBe(0);
-    await expect(page.locator('#pipeline-status')).toHaveText('Reduced motion enabled');
-    await expect(page.locator('#factory')).toHaveAttribute('data-factory-running', 'false');
+    await expect(page.locator('#factory .phase.is-reached')).toHaveCount(7);
+    await expect(page.locator('#phase-detail li:visible')).toHaveCount(7);
     const transform = await page.locator('.hero h1 .line > span').first().evaluate((el) => getComputedStyle(el).transform);
     expect(transform).toBe('none');
     await page.locator('.world-map').scrollIntoViewIfNeeded();
