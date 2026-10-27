@@ -452,7 +452,6 @@ html[lang=es] .hero-facts>div:nth-child(2) strong{font-size:16px}
 .service-list details[open]::details-content{block-size:auto}
 summary{cursor:pointer;list-style:none;display:flex;align-items:center;gap:19px;padding:25px 0}
 summary::-webkit-details-marker{display:none}
-.service-number{color:var(--accent);font-size:10px}
 summary h3{font-size:17px;letter-spacing:-.025em;flex:1;transition:transform .35s var(--ease),color .25s}
 .service-list summary:hover h3{transform:translateX(4px)}
 .expand{font-size:23px;font-weight:400;color:var(--text-4);line-height:1;transition:transform .35s var(--ease),color .25s}
@@ -704,14 +703,13 @@ html[lang=es] .svg-label{font-size:13px}
 .contact{position:relative;overflow:hidden;padding:50px 0 65px;background:radial-gradient(ellipse at 100% 0,var(--contact-glow),transparent 48%),var(--sec-2);color:var(--text)}
 .contact::before{content:'';position:absolute;right:-100px;top:-150px;width:600px;height:600px;transform:rotate(45deg);border:1px solid var(--line-soft);pointer-events:none;animation:slow-turn 90s linear infinite}
 .contact::after{content:'';position:absolute;right:20px;top:-30px;width:360px;height:360px;transform:rotate(45deg);border:1px solid var(--line-soft);pointer-events:none;animation:slow-turn 70s linear infinite reverse}
-.contact-top{display:flex;justify-content:space-between;align-items:center}
-.contact-top .eyebrow{margin:0}
-.contact-top>.mono{color:var(--text-4);font-size:9px;text-transform:uppercase}
 .contact h2{font-size:clamp(45px,6.7vw,90px);line-height:1.1;letter-spacing:-.05em;margin-top:60px;position:relative}
 .contact h2 span{color:var(--accent)}
-.contact-bottom{display:flex;justify-content:space-between;align-items:end;margin-top:40px;position:relative}
+.contact-bottom{display:flex;justify-content:space-between;align-items:end;gap:28px;flex-wrap:wrap;margin-top:40px;position:relative}
 .contact-bottom p{font-size:13px;line-height:1.8;color:var(--text-3)}
 .light-button{background:var(--cta2-bg);color:var(--cta2-text);min-width:250px}
+.contact-actions{display:flex;flex-direction:column;align-items:flex-end;gap:16px}
+.contact-email{text-transform:none;letter-spacing:0;user-select:all}
 .light-button:hover{background:var(--accent);color:var(--accent-ink)}
 footer{display:flex;align-items:center;justify-content:space-between;padding-top:29px;padding-bottom:29px}
 .footer-name{font-size:17px;font-weight:500;letter-spacing:-.04em}
@@ -926,7 +924,6 @@ footer>a:last-child:hover{border-color:var(--accent);transform:translateY(-3px)}
   .about-text{padding-top:25px}
   .contact{padding-top:35px;padding-bottom:45px}
   .contact::after{display:none}
-  .contact-top>.mono{display:none}
   .contact h2{font-size:clamp(40px,9.5vw,70px);margin-top:45px}
   .contact-bottom{display:block;margin-top:30px}
   .contact-bottom .button{margin-top:28px;min-width:250px}

@@ -235,6 +235,18 @@ test.describe('experiencia', () => {
   });
 });
 
+test.describe('contacto', () => {
+  test('correo visible como acción principal y LinkedIn como alternativa, sin formularios', async ({ page }) => {
+    await open(page);
+    const email = page.locator('#contacto a[href="mailto:andres.mejia@tekhos.com"]');
+    await expect(email).toBeVisible();
+    await expect(email).toContainText('andres.mejia@tekhos.com');
+    await expect(page.locator('#contacto a[href="https://www.linkedin.com/in/andresmejiatcl/"]')).toBeVisible();
+    expect(await page.locator('form').count()).toBe(0);
+    expect(await page.locator('main h2').evaluateAll((hs) => hs.filter((h) => h.previousElementSibling?.classList.contains('eyebrow')).length)).toBe(0);
+  });
+});
+
 test.describe('cartera de clientes', () => {
   test('30 clientes en 5 canales, con enlaces solo a los socios', async ({ page }) => {
     await open(page);
