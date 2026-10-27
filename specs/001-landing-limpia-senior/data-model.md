@@ -11,7 +11,7 @@ El contenido vive en `web/index.html` (fase 1). Este modelo fija qué datos llev
 | `items` | lista `data-items` (salvo `engagements`); cada elemento aparece en la página fuera de la cifra |
 | `label`, `sub` | texto EN con clave ES |
 
-Valores tras el cambio: 15 experiencias, 17 organizaciones, 16 países (Chile y Perú añadidos el 2026-10-27), 8 sectores. Se retiran `ecosystems` y `clouds` de la banda y las 4 cifras del stack.
+Valores tras el cambio: 16 experiencias (proyecto de ML en Perú añadido el 2026-10-27), 17 organizaciones, 16 países (Chile y Perú añadidos el 2026-10-27), 9 sectores. Se retiran `ecosystems` y `clouds` de la banda y las 4 cifras del stack.
 
 ## Área de capacidad
 
