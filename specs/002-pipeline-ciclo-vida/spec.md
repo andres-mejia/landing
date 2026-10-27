@@ -15,6 +15,7 @@
 - Q: ¿Qué fases recorre? → A: 7 fases: Discover & plan, Analyse, Architect, Build, Verify, Release, Operate.
 - Q: ¿Qué cambio recorre las fases como ejemplo? → A: uno real de FENORA, el producto propio de Andrés.
 - Q: ¿Qué papel tiene la IA (RAG, MCP, agentes)? → A: una franja fina de aceleradores que cruza las fases; deja de ser el centro.
+- Q: ¿Es fiel el borrador del ejemplo de FENORA? → A: sí; se publica sin nombrar agregador ni bancos.
 - Q: ¿Cómo se mueve? → A: el cambio avanza fase a fase al entrar en pantalla y cada fase deja su artefacto; también se puede elegir una fase. Con movimiento reducido, todo estático.
 
 ## Contexto
@@ -82,7 +83,7 @@ El visitante ve una franja fina que cruza las fases e indica dónde los agentes,
 
 - **FR-001**: La sección MUST sustituir el pipeline actual (cubos, módulos RAG / Agent harness / MCP y sus contextos) por un plano del ciclo de vida con 7 fases: Discover & plan, Analyse, Architect, Build, Verify, Release, Operate.
 - **FR-002**: Cada fase MUST mostrar: qué hace Andrés, el artefacto que produce y el riesgo que evita, en una frase cada uno como máximo.
-- **FR-003**: Un cambio real de FENORA MUST recorrer las fases dejando un artefacto concreto en cada una: [NEEDS CLARIFICATION: confirmar el cambio y los 7 artefactos reales; borrador en el brief de diseño]
+- **FR-003**: Un cambio real de FENORA, "conectar un banco nuevo por Open Banking (PSD2)", MUST recorrer las fases dejando un artefacto concreto en cada una (tabla del brief de diseño, confirmada por Andrés). Ni el agregador ni los bancos se nombran.
 - **FR-004**: Tras Operate, la sección MUST mostrar el retorno de lo aprendido a la planificación.
 - **FR-005**: Una franja de aceleradores MUST cruzar las fases y nombrar como máximo 3 (agentes, RAG, MCP) con las fases en las que intervienen.
 - **FR-006**: El visitante MUST poder elegir una fase con ratón, toque o teclado; la fase elegida queda indicada como seleccionada.

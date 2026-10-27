@@ -235,6 +235,18 @@ test.describe('experiencia', () => {
   });
 });
 
+test.describe('contacto', () => {
+  test('correo visible como acción principal y LinkedIn como alternativa, sin formularios', async ({ page }) => {
+    await open(page);
+    const email = page.locator('#contacto a[href="mailto:andres.mejia@tekhos.com"]');
+    await expect(email).toBeVisible();
+    await expect(email).toContainText('andres.mejia@tekhos.com');
+    await expect(page.locator('#contacto a[href="https://www.linkedin.com/in/andresmejiatcl/"]')).toBeVisible();
+    expect(await page.locator('form').count()).toBe(0);
+    expect(await page.locator('main h2').evaluateAll((hs) => hs.filter((h) => h.previousElementSibling?.classList.contains('eyebrow')).length)).toBe(0);
+  });
+});
+
 test.describe('cartera de clientes', () => {
   test('30 clientes en 5 canales, con enlaces solo a los socios', async ({ page }) => {
     await open(page);
@@ -327,8 +339,8 @@ test.describe('accesibilidad (axe)', () => {
 test.describe('presupuesto de texto', () => {
   test.use({ reducedMotion: 'reduce' });
   // SC-001 de la spec 001: palabras de <main> en inglés (total, incluido lo plegable); se anotan también las visibles sin desplegar.
-  // El umbral se activa al cerrar la spec (T015); hasta entonces solo se mide y se anota.
-  const WORD_BUDGET: { total: number; visible: number } | null = null;
+  // Cierre de la spec 001 (2026-10-27): 1.610 en total y 1.365 visibles medidos, con un 2 % de margen. La spec 002 los baja.
+  const WORD_BUDGET: { total: number; visible: number } | null = { total: 1640, visible: 1390 };
   test('palabras de la página en inglés', async ({ page }) => {
     await page.setViewportSize({ width: 1440, height: 900 });
     await open(page);

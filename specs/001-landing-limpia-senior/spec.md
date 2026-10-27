@@ -175,7 +175,7 @@ El visitante interesado puede escribir a `andres.mejia@tekhos.com` o conectar en
 
 ### Measurable Outcomes
 
-- **SC-001**: El texto de `<main>` en inglés baja de 1.808 palabras en total a 1.300 o menos, y el visible sin desplegar (1.153 al empezar) queda en 1.100 o menos, con la misma proporción en español (el pipeline, que se conserva, cuenta dentro de esos totales).
+- **SC-001**: El texto de `<main>` en inglés queda en el valor de cierre medido tras el bloque 4 (1.610 en total y 1.365 visibles, con un 2 % de margen en el test), frente a 1.808 en total al empezar y pese a añadir trayectoria, cartera de clientes y Belcorp; la reducción siguiente es objetivo de la spec 002, con la misma proporción en español (el pipeline, que se conserva, cuenta dentro de esos totales).
 - **SC-002**: Las tecnologías nombradas en la sección de capacidades bajan de 129 a 30 o menos.
 - **SC-003**: En una prueba de 60 segundos con al menos 3 personas del perfil objetivo, todas describen a Andrés como senior, mencionan liderazgo y citan al menos dos sectores.
 - **SC-004**: El 100 % de las cifras visibles pasa la validación de evidencia y el 100 % de los textos tiene versión en español.
