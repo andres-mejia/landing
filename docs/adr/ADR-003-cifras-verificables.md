@@ -35,6 +35,11 @@
 - Para cambiar una cifra hay que cambiar su evidencia, o el build falla. Es intencionado.
 - **Pendiente de Andrés:** totales reales de proyectos y clientes (los actuales son los que se pueden comprobar en la página), herramientas BPM y cifras de resultado por proyecto.
 
+## Cartera de clientes (2026-10-27)
+
+- Andrés aporta su cartera de 30 clientes finales por canal. La página la muestra en la matriz "Clients by channel", que es la evidencia de las cifras de organizaciones (38: 30 clientes y 8 consultoras o socios) y de sectores (16).
+- Solo se enlazan los socios y empresas donde trabajó Andrés, nunca los clientes finales, para no sugerir un respaldo.
+
 ## Enmienda (2026-10-26, spec 001)
 
 - **La banda principal pasa a 4 cifras** por decisión de Andrés: experiencias, organizaciones, países y sectores. Los ecosistemas backend y las clouds salen de la banda y se describen en las áreas de capacidad, sin cifra. Las 4 cifras del stack (frameworks backend y frontend, herramientas ETL y plataformas big data) se retiran con el explorador tecnológico.
