@@ -17,7 +17,7 @@ Una sola página con anclas. Orden de secciones tras la spec 001 (2026-10-27):
 | Contextos | — | 6 marcas con su sector debajo |
 | Evidencia | — | Banda de 4 cifras verificables (experiencias, organizaciones, países, sectores) y mapa de puntos con un punto vivo por país y leyenda por región |
 | Expertise | `#enfoque` | Cuatro especialidades en `<details>`, una frase cada una |
-| Pipeline | `#factory` | Pendiente de rediseño en la spec 002 (ciclo de vida en 7 fases) |
+| Ciclo de vida | `#factory` | Plano técnico de 7 fases con el cambio real de FENORA, artefacto por fase, panel de papel y riesgo, retorno al roadmap y franja de aceleradores de IA (spec 002) |
 | Experiencia | `#experiencia` | Filtros, insights, 16 tarjetas (6 destacadas por sector) y matriz "Clients by channel" con 30 clientes por canal |
 | Capacidades | `#capabilities` | Rejilla de 6 áreas con hasta 5 tecnologías y los proyectos que las respaldan |
 | Trayectoria | `#trayectoria` | Carriles proporcionales 2005 a hoy con 5 etapas, marcador "Today", liderazgo e idiomas |
@@ -47,10 +47,12 @@ Solo el H1 lleva etiqueta encima; los H2 no (el detector y Impeccable vetan las 
 - Los países por región suman el KPI de países. Las cifras del stack abren su panel tecnológico.
 - **Aceptación:** test de cifras en verde; nada se publica sin evidencia visible.
 
-### 3.4 Pipeline
-- Dos SVG que comparten `data-station`: horizontal desde 861 px, vertical hasta 860 px y sin scroll horizontal. Solo el visible anima (SMIL).
-- Etapas seleccionables (`data-stage`, `aria-pressed`), contextos RAG/MCP/harness y botón "Replay". Sin botón de pausa.
-- **Aceptación:** vertical sin scroll a 320, 390, 768 y 860 px; las etapas y contextos se seleccionan con teclado.
+### 3.4 Ciclo de vida (spec 002)
+- 7 fases (Discover & plan, Analyse, Architect, Build, Verify, Release, Operate) como botones con `aria-pressed`; el panel `#phase-detail` (`aria-live`) muestra el papel de Andrés y el riesgo que evita.
+- Con movimiento: el cambio recorre las fases (1,6 s por fase), cada estación emite un pulso y su artefacto se dibuja; vuelve por el arco al roadmap y el ciclo se repite. Paquetes por la línea y aceleradores que se encienden en sus fases. Solo en pantalla; elegir una fase lo detiene; "Replay" lo reinicia.
+- Sin JS o con movimiento reducido: todas las fases, artefactos y detalles visibles a la vez.
+- Vertical hasta 860 px; sin desplazamiento horizontal de 320 a 2560 px; máximo 200 palabras.
+- **Aceptación:** tests de fases, anchos, selección y flechas, recorrido en pantalla, español, movimiento reducido y límite de palabras.
 
 ### 3.5 Experiencia
 - Filtros por ámbito (todos, finanzas, comercio, plataformas, producto). Cada tarjeta identifica el contexto (cliente final, consultora, plataforma, producto propio o prueba de concepto).

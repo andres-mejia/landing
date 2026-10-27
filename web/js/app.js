@@ -217,8 +217,75 @@
    select((selected+delta+buttons.length)%buttons.length,true);
    lifecycle.dispatchEvent(new CustomEvent('phase-select'));
   });
-  if(motionAllowed())lifecycle.classList.add('is-interactive');
   select(0);
+
+  /* The change travels the seven phases, returns along the arc to the roadmap and starts again:
+     the lifecycle is iterative. It only runs while the section is on screen; choosing a phase
+     stops it there and Replay starts it again. Reduced motion keeps the static view. */
+  const STEP_MS=1600,RETURN_MS=1800,REST_MS=2600,FLOW_MS=7000;
+  const board=$('.lifecycle-board',lifecycle);
+  const track=$('.lifecycle-track',lifecycle);
+  const flow=$$('.lifecycle-flow i',lifecycle);
+  const svg=$('.lifecycle-return',lifecycle),arc=$('.lifecycle-return path',lifecycle),dot=$('.lifecycle-return-dot',lifecycle);
+  const accelerators=$$('.accelerator',lifecycle).map(el=>({el,phases:(el.dataset.phases||'').split(' ').map(Number)}));
+  const last=phases.length-1;
+  let at=-1,timer=null,pending=null,waiting=false,inView=false,running=false,raf=0,returnStart=0;
+  const live=()=>inView&&!document.hidden;
+  const setAt=index=>{at=index;lifecycle.style.setProperty('--at',String(Math.max(0,index)))};
+  const reach=index=>{phases.forEach((p,i)=>p.classList.toggle('is-reached',i<=index));setAt(index)};
+  const light=index=>accelerators.forEach(a=>a.el.classList.toggle('is-active',a.phases.includes(index)));
+  const arrive=index=>{const p=phases[index];p.classList.remove('is-arriving');void p.offsetWidth;p.classList.add('is-arriving');light(index)};
+  const later=(fn,ms)=>{clearTimeout(timer);pending=fn;waiting=false;timer=setTimeout(()=>{timer=null;if(!live()){waiting=true;return}pending=null;fn()},ms)};
+  const resume=()=>{if(waiting&&pending&&live()){const fn=pending;waiting=false;pending=null;fn()}};
+  const stop=()=>{clearTimeout(timer);timer=null;pending=null;waiting=false;running=false;returnStart=0;lifecycle.dataset.running='false';dot.classList.remove('is-moving')};
+  const step=()=>{
+   const next=at+1;
+   reach(next);select(next);arrive(next);
+   if(next<last){later(step,STEP_MS);return}
+   lifecycle.classList.add('is-returned');
+   later(()=>{returnStart=performance.now();dot.classList.add('is-moving');
+    later(()=>{returnStart=0;dot.classList.remove('is-moving');
+     later(()=>{lifecycle.classList.remove('is-returned');light(-1);reach(-1);later(step,STEP_MS/2)},REST_MS);
+    },RETURN_MS);
+   },STEP_MS/2);
+  };
+  const start=()=>{stop();lifecycle.classList.remove('is-returned');light(-1);reach(-1);running=true;lifecycle.dataset.running='true';later(step,STEP_MS/2)};
+
+  /* Ambient flow along the line and the dot that returns along the arc (transforms only). */
+  const frame=now=>{
+   raf=0;
+   if(!live())return;
+   if(track.offsetParent){
+    const width=track.clientWidth;
+    flow.forEach((el,i)=>{
+     const t=((now/FLOW_MS)+i/flow.length)%1;
+     el.style.transform=`translateX(${(t*width).toFixed(1)}px)`;
+     el.style.opacity=String(Math.min(1,t*6,(1-t)*6)*.8);
+    });
+   }
+   if(returnStart&&svg.getClientRects().length){
+    const t=Math.min(1,(now-returnStart)/RETURN_MS),eased=1-Math.pow(1-t,3);
+    const point=arc.getPointAtLength(arc.getTotalLength()*eased);
+    const box=svg.getBoundingClientRect(),origin=board.getBoundingClientRect();
+    const x=point.x/1000*box.width+box.left-origin.left,y=point.y/56*box.height+box.top-origin.top;
+    dot.style.transform=`translate(${x.toFixed(1)}px,${y.toFixed(1)}px)`;
+   }
+   raf=requestAnimationFrame(frame);
+  };
+  const animate=()=>{if(live()&&!raf)raf=requestAnimationFrame(frame)};
+
+  if(motionAllowed()&&'IntersectionObserver' in window){
+   lifecycle.classList.add('is-interactive');
+   reach(-1);
+   lifecycle.addEventListener('phase-select',()=>{stop();reach(last);setAt(selected);light(selected);lifecycle.classList.add('is-returned')});
+   $('.lifecycle-replay',lifecycle).addEventListener('click',start);
+   new IntersectionObserver(entries=>{
+    inView=entries[0].isIntersecting;
+    if(inView&&!running&&at<0)start();
+    resume();animate();
+   },{threshold:.25}).observe(board);
+   document.addEventListener('visibilitychange',()=>{resume();animate()});
+  }
   window.siteLifecycle={select,phases,lifecycle};
  }
 })();
