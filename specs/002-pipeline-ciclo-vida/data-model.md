@@ -31,7 +31,7 @@ Reglas: una frase corta por campo; siglas sin traducir.
 |---|---|---|
 | RAG | Project knowledge | 02, 03 |
 | Agents | Build and verification | 04, 05 |
-| MCP | Tools and environments | 04, 06, 07 |
+| MCP | Tools and environments | 04 a 07 (Build a Operate) |
 
 ## Estado (cliente)
 

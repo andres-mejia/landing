@@ -19,7 +19,7 @@
 
 ## R4. Aceleradores de IA
 
-- **Decision:** franja bajo las estaciones con 3 tramos: RAG (contexto del proyecto) en Analyse y Architect; agentes en Build y Verify; MCP (herramientas y entornos) en Build, Release y Operate. Cada tramo se alinea con sus columnas en escritorio y se lista en móvil.
+- **Decision:** franja bajo las estaciones con 3 tramos: RAG (contexto del proyecto) en Analyse y Architect; agentes en Build y Verify; MCP (herramientas y entornos) de Build a Operate. Cada tramo se alinea con sus columnas en escritorio y se lista en móvil.
 - **Rationale:** FR-005: la IA presente como acelerador sin protagonismo. Las fases asignadas son el uso habitual descrito en el pipeline anterior (RAG para conocimiento del proyecto, MCP para herramientas, agentes en la construcción); Andrés las revisa en la parada.
 
 ## R5. Presupuesto de palabras
