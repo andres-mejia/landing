@@ -126,6 +126,39 @@ test.describe('ciclo de vida', () => {
     await expect(page.locator('#phase-detail li.is-selected')).toContainText('Manual deployments.');
     await expect(page.locator('#factory .accelerator')).toHaveCount(3);
   });
+
+  test('el cambio recorre las fases solo en pantalla y elegir una fase lo detiene', async ({ page }) => {
+    await page.setViewportSize({ width: 1440, height: 900 });
+    await open(page);
+    // Fuera de pantalla no avanza: solo la primera fase está marcada como punto de partida.
+    await expect(page.locator('#factory .phase.is-reached')).toHaveCount(0);
+    await page.locator('#factory .lifecycle-board').scrollIntoViewIfNeeded();
+    await expect(page.locator('#factory')).toHaveAttribute('data-running', 'true');
+    await expect(page.locator('#factory .phase.is-reached')).toHaveCount(3, { timeout: 8000 });
+    await page.locator('#factory .phase-button').nth(1).click();
+    await expect(page.locator('#factory')).toHaveAttribute('data-running', 'false');
+    await expect(page.locator('#factory .phase-button').nth(1)).toHaveAttribute('aria-pressed', 'true');
+    await expect(page.locator('#factory')).toHaveClass(/is-returned/);
+    await page.locator('.lifecycle-replay').click();
+    await expect(page.locator('#factory')).toHaveAttribute('data-running', 'true');
+    await expect(page.locator('#factory .phase.is-reached')).toHaveCount(7, { timeout: 15000 });
+    await expect(page.locator('#factory')).toHaveClass(/is-returned/);
+    // El ciclo vuelve a empezar: tras el retorno, las fases se reinician y el recorrido sigue.
+    await expect(page.locator('#factory .phase.is-reached')).toHaveCount(1, { timeout: 10000 });
+    await expect(page.locator('#factory .accelerator.is-active')).toHaveCount(0);
+    await expect(page.locator('#factory .phase.is-reached')).toHaveCount(4, { timeout: 8000 });
+    await expect(page.locator('#factory .accelerator.is-active')).toHaveCount(2);
+  });
+
+  test('la sección no pasa de 200 palabras en inglés', async ({ page }) => {
+    await open(page);
+    const words = await page.evaluate(() => {
+      const clone = document.querySelector('#factory')!.cloneNode(true) as HTMLElement;
+      clone.querySelectorAll('svg').forEach((el) => el.remove());
+      return (clone.textContent!.match(/[A-Za-zÀ-ÿ0-9][\w'’./+-]*/g) ?? []).length;
+    });
+    expect(words).toBeLessThanOrEqual(200);
+  });
 });
 
 test.describe('idiomas', () => {

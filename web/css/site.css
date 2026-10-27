@@ -450,7 +450,7 @@ summary h3{font-size:17px;letter-spacing:-.025em;flex:1;transition:transform .35
 .phase-name{display:block;margin-top:6px;font-size:16px;font-weight:500;line-height:1.25;letter-spacing:-.02em;color:var(--text);transition:color .25s}
 .phase-button:hover .phase-name,.phase.is-selected .phase-name{color:var(--accent)}
 .phase-artifact{margin-top:14px;padding-top:12px;border-top:1px dashed var(--line);font-size:13px;line-height:1.5;color:var(--text-3);transition:opacity .5s var(--ease),transform .5s var(--ease)}
-.lifecycle.is-interactive .phase:not(.is-reached) .phase-artifact{opacity:.15;transform:translateY(6px)}
+.lifecycle.is-interactive .phase:not(.is-reached) .phase-artifact{opacity:0;transform:translateY(8px)}
 .lifecycle-return{display:block;width:100%;height:56px;margin-top:18px;overflow:visible}
 .lifecycle-return path{fill:none;stroke:var(--line-strong);stroke-width:1;stroke-dasharray:4 6;vector-effect:non-scaling-stroke}
 .lifecycle-return-label{margin-top:-6px;text-align:center;font-size:13px;color:var(--text-3)}
@@ -471,7 +471,25 @@ summary h3{font-size:17px;letter-spacing:-.025em;flex:1;transition:transform .35
 .detail-phase{font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--accent-label)}
 .lifecycle-detail li p:not(.detail-phase){margin-top:6px;font-size:15px;line-height:1.6;color:var(--text-2)}
 .lifecycle-detail strong{display:block;margin-bottom:2px;font-size:12px;font-weight:500;letter-spacing:.04em;color:var(--text-4)}
+.lifecycle-flow{position:absolute;left:0;right:0;top:-1px;height:3px;overflow:hidden}
+.lifecycle-flow i{position:absolute;left:0;top:0;width:22px;height:3px;margin-left:-11px;border-radius:2px;background:var(--signal);opacity:0}
+.lifecycle:not(.is-interactive) .lifecycle-flow,.lifecycle:not(.is-interactive) .lifecycle-return-dot{display:none}
+.lifecycle-return-dot{position:absolute;left:0;top:0;width:9px;height:9px;margin:-5px 0 0 -5px;border-radius:50%;background:var(--accent);opacity:0;transition:opacity .3s;pointer-events:none}
+.lifecycle-return-dot.is-moving{opacity:1}
+.phase-button::after{content:'';position:absolute;top:10px;left:50%;width:11px;height:11px;margin-left:-6px;border-radius:50%;border:1px solid var(--accent);opacity:0;pointer-events:none}
+.phase.is-arriving .phase-button::after{animation:phase-ping 1s var(--ease) 1}
+@keyframes phase-ping{from{transform:scale(1);opacity:.9}to{transform:scale(3.4);opacity:0}}
+.lifecycle.is-interactive .phase-artifact{clip-path:inset(0 0 0 0);transition:clip-path .8s var(--ease),opacity .5s var(--ease),transform .5s var(--ease)}
+.lifecycle.is-interactive .phase:not(.is-reached) .phase-artifact{clip-path:inset(0 0 100% 0)}
+.lifecycle.is-interactive .accelerator{transition:background .45s,border-color .45s,color .45s}
+.accelerator.is-active{background:var(--accent-soft);border-top-color:var(--accent);color:var(--text)}
 .lifecycle-replay{display:none}
+.lifecycle.is-interactive .lifecycle-replay{display:inline-flex;gap:8px;align-items:center;background:none;border:0;padding:0;cursor:pointer;font:inherit;font-size:13px;color:var(--text-2)}
+.lifecycle.is-interactive .lifecycle-replay:hover{color:var(--accent)}
+.lifecycle.is-interactive:not(.is-returned) .lifecycle-return,.lifecycle.is-interactive:not(.is-returned) .lifecycle-return-label{opacity:0}
+.lifecycle-return,.lifecycle-return-label{transition:opacity .9s var(--ease)}
+.lifecycle.is-interactive .phase-button::before{transition:border-color .4s,background .4s,transform .4s var(--ease)}
+.lifecycle.is-interactive .phase.is-reached .phase-button::before{transform:scale(1.15)}
 .journey-section{border-top:1px solid var(--line)}
 .journey-chart{--meta:300px;--gap:56px;position:relative;margin-top:56px}
 .journey{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
@@ -621,6 +639,7 @@ footer>a:last-child:hover{border-color:var(--accent);transform:translateY(-3px)}
   .phase{padding:0 0 0 30px;text-align:left}
   .phase-button{padding-top:0}
   .phase-button::before{top:3px;left:0;margin-left:0}
+  .phase-button::after{top:3px;left:0;margin-left:0}
   .phase-artifact{margin-top:6px;padding-top:0;border-top:0}
   .lifecycle-return-label{margin-top:22px;padding-left:30px;text-align:left}
   .lifecycle-accelerators{grid-template-columns:1fr}
