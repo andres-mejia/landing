@@ -45,6 +45,7 @@
   --line-soft:#FFFFFF12;
   --line-strong:#3A4A57;
   --grid-gap:#3B4248;
+  --card-bg:rgba(23,29,35,.55);
   --hover-tint:#FFFFFF0D;
   --accent:#E1B28C;
   --accent-hover:#F0C8A4;
@@ -153,6 +154,7 @@ html[data-theme=light]{
   --line-soft:rgba(17,20,24,.08);
   --line-strong:rgba(17,20,24,.2);
   --grid-gap:rgba(17,20,24,.12);
+  --card-bg:rgba(255,255,255,.55);
   --hover-tint:rgba(17,20,24,.05);
   /* Brand oxide #B5502B fails AA on the alternate surfaces (4.3:1) for small text; #A24A28 is ≥5:1 on all of them.
      #B5502B stays for graphics (--d1, bars, swatches). */
@@ -409,7 +411,7 @@ html[lang=es] .hero-facts>div:nth-child(2) strong{font-size:16px}
 .pin-core,.pin-pulse{transform-box:fill-box;transform-origin:center}
 .pin.is-active .pin-core{transform:scale(1.7)}
 /* Puntos vivos: un pulso lento y desfasado por país, solo mientras el mapa está en pantalla (app.js añade .is-live). */
-.world-map.is-live .pin-pulse{animation:pin-pulse 3.6s var(--ease) infinite;animation-delay:calc(var(--i,0) * -.53s)}
+.world-map.is-live .pin-pulse,.journey-chart.is-live .pin-pulse{animation:pin-pulse 3.6s var(--ease) infinite;animation-delay:calc(var(--i,0) * -.53s)}
 @keyframes pin-pulse{0%{opacity:.75;transform:scale(1)}70%,100%{opacity:0;transform:scale(4.2)}}
 [data-reveal=waiting] .region li{opacity:0;transform:translateY(6px)}
 [data-reveal=visible] .region li{transition-delay:calc(var(--i,0)*35ms + .5s)}
@@ -595,8 +597,8 @@ html[lang=es] .svg-label{font-size:13px}
 .experience-filters button:hover{border-color:var(--accent);color:var(--text)}
 .experience-filters button[aria-pressed=true]{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
 .project-meta{display:flex;justify-content:space-between;gap:20px;color:var(--text-4);margin:24px 0 16px;font-size:10px}
-.project-gallery{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:var(--grid-gap);border:1px solid var(--grid-gap)}
-.engagement{position:relative;padding:28px;background:var(--surface);min-width:0;display:flex;flex-direction:column;transition:background .3s}
+.project-gallery{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-top:1px solid var(--grid-gap);border-left:1px solid var(--grid-gap)}
+.engagement{position:relative;padding:28px;background:var(--card-bg);border-right:1px solid var(--grid-gap);border-bottom:1px solid var(--grid-gap);min-width:0;display:flex;flex-direction:column;transition:background .3s}
 .engagement:hover{background:var(--surface-hover)}
 .engagement::after{content:'';position:absolute;left:0;right:0;top:0;height:1px;background:linear-gradient(90deg,transparent,var(--accent),transparent);transform:scaleX(0);transition:transform .7s var(--ease);pointer-events:none}
 .engagement:hover::after{transform:scaleX(1)}
@@ -645,13 +647,24 @@ html[lang=es] .svg-label{font-size:13px}
 
 /* ---------- Method ---------- */
 .journey-section{border-top:1px solid var(--line)}
-.journey{list-style:none;margin:56px 0 0;padding:0;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));column-gap:36px;border-top:1px solid var(--line)}
-.milestone{position:relative;padding-top:30px;min-width:0}
-.milestone::before{content:'';position:absolute;top:-1px;left:0;width:28px;height:2px;background:var(--accent)}
+.journey-chart{--meta:300px;--gap:56px;position:relative;margin-top:56px}
+.journey{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
+.milestone{display:grid;grid-template-columns:var(--meta) minmax(0,1fr);column-gap:var(--gap);padding:28px 0;border-bottom:1px solid var(--line-soft);min-width:0}
 .milestone-period{font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--accent-label)}
-.milestone h3{margin-top:18px;font-size:24px;font-weight:500;letter-spacing:-.035em;line-height:1.15;color:var(--text)}
-.milestone-role{margin-top:8px;font-size:14px;color:var(--text)}
-.milestone-text{margin-top:14px;font-size:14px;line-height:1.7;color:var(--text-3);max-width:32ch}
+.milestone h3{margin-top:10px;font-size:23px;font-weight:500;letter-spacing:-.035em;line-height:1.15;color:var(--text)}
+.milestone-role{margin-top:6px;font-size:14px;color:var(--text)}
+.milestone-text{font-size:14px;line-height:1.7;color:var(--text-3);max-width:62ch}
+.journey-axis,.milestone-track,.journey-now{display:none}
+.js .journey-axis{display:block;position:relative;height:28px;margin-left:calc(var(--meta) + var(--gap))}
+.journey-axis span{position:absolute;bottom:8px;left:calc(var(--p,0) * 100%);transform:translateX(-50%);font-family:var(--mono);font-size:12px;letter-spacing:.04em;color:var(--text-4)}
+.journey-axis span:first-child{transform:none}
+.js .milestone-track{display:block;position:relative;height:10px;margin:7px 0 18px;background:var(--line-soft)}
+.milestone-bar{position:absolute;top:0;bottom:0;left:calc(var(--s,0) * 100%);width:max(10px,calc((var(--e,1) - var(--s,0)) * 100%));background:var(--signal);transform-origin:left center;transition:transform 1.2s var(--ease) calc(var(--i,0) * .12s + .2s)}
+.is-ongoing .milestone-bar{background:var(--accent)}
+.journey-chart[data-reveal=waiting] .milestone-bar{transform:scaleX(0)}
+.js .journey-now{display:block;position:absolute;top:0;bottom:0;width:0;left:calc(var(--meta) + var(--gap) + (100% - var(--meta) - var(--gap)) * var(--now,1));border-left:1px dashed var(--accent);pointer-events:none}
+.journey-now svg{position:absolute;top:14px;left:0;width:26px;height:26px;transform:translate(-50%,-50%);overflow:visible}
+.journey-now-label{position:absolute;bottom:-26px;right:-1px;transform:translateX(50%);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--accent-label);white-space:nowrap}
 .leadership{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:44px;margin:48px 0 0;border-top:1px solid var(--line)}
 .leadership>div{padding-top:24px}
 .leadership dt{font-size:16px;font-weight:500;letter-spacing:-.01em;color:var(--text)}
@@ -919,11 +932,11 @@ footer>a:last-child:hover{border-color:var(--accent);transform:translateY(-3px)}
   .kpi-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
   .countries{grid-template-columns:1fr}
   .world-map{order:-1}
-  .pin-core{r:10px}
-  .pin-pulse{r:11px}
+  .world-map .pin-core{r:10px}
+  .world-map .pin-pulse{r:11px}
+  .journey-chart{--meta:230px;--gap:36px}
   .regions{grid-template-columns:repeat(3,minmax(0,1fr))}
   .capabilities{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .journey{grid-template-columns:repeat(2,minmax(0,1fr));row-gap:36px}
   .kpi:nth-child(odd){border-left:0;padding-left:0}
   .kpi:nth-child(odd)::before{left:0}
   .kpi:nth-child(n+3){border-top:1px solid var(--line)}
@@ -932,10 +945,6 @@ footer>a:last-child:hover{border-color:var(--accent);transform:translateY(-3px)}
 @media(max-width:760px){
   .kpis{padding-top:44px;padding-bottom:44px}
   .capabilities{grid-template-columns:1fr;margin-top:36px}
-  .journey{grid-template-columns:1fr;margin-top:36px}
-  .journey{border-top:0;row-gap:28px}
-  .milestone{padding-top:20px;border-top:1px solid var(--line)}
-  .milestone h3{font-size:23px}
   .leadership{grid-template-columns:1fr;margin-top:28px}
   .leadership>div{padding-top:20px}
   .capability{padding:26px 22px 24px}
@@ -950,8 +959,14 @@ footer>a:last-child:hover{border-color:var(--accent);transform:translateY(-3px)}
   .kpi-label{margin-top:12px}
   .countries{grid-template-columns:1fr;gap:16px}
   .regions{grid-template-columns:1fr;gap:18px}
-  .pin-core{r:15px}
-  .pin-pulse{r:16px}
+  .world-map .pin-core{r:15px}
+  .world-map .pin-pulse{r:16px}
+  .journey-chart{--meta:0px;--gap:0px;margin-top:36px}
+  .js .journey-now{border-left-color:transparent}
+  .journey-now-label{top:5px;bottom:auto;right:14px;transform:none}
+  .journey-axis span:last-child{display:none}
+  .milestone{grid-template-columns:1fr;row-gap:12px;padding:22px 0}
+  .milestone h3{font-size:22px}
   .js .insights{grid-template-columns:1fr;gap:34px;margin-top:34px}
   .domain-legend{grid-template-columns:1fr;gap:0}
   .recurring li{grid-template-columns:1fr 60px;gap:6px 12px}

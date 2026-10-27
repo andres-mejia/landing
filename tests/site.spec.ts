@@ -243,6 +243,17 @@ test.describe('trayectoria', () => {
     expect(await milestones.locator('h3').allTextContents()).toEqual(['Early career', 'Team Cloud', 'PFS Group', 'FENORA', 'Tekhos']);
     expect(await milestones.locator('.milestone-period').allTextContents()).toEqual(['2005 – 2012', '2012 – 2021', '2019 – 2024', 'Since 2025', 'Since 2026']);
     await expect(page.locator('#trayectoria .leadership')).toContainText('up to 12 people');
+    // Carriles proporcionales: cada barra empieza donde dice su año y las etapas abiertas llegan a "hoy".
+    await page.locator('.journey-chart').scrollIntoViewIfNeeded();
+    await expect(page.locator('.journey-chart')).toHaveClass(/is-live/);
+    await expect(page.locator('.journey-chart')).toHaveAttribute('data-reveal', 'visible');
+    await page.waitForTimeout(2200);
+    const bars = await page.locator('.milestone-bar').evaluateAll((els) => els.map((el) => { const r = el.getBoundingClientRect(); return { left: r.left, width: r.width }; }));
+    expect(bars).toHaveLength(5);
+    for (const bar of bars) expect(bar.width).toBeGreaterThan(5);
+    for (let i = 1; i < bars.length; i++) expect(bars[i].left).toBeGreaterThan(bars[i - 1].left);
+    await expect(page.locator('#trayectoria .is-ongoing')).toHaveCount(2);
+    await expect(page.locator('.journey-now')).toBeVisible();
     await expect(page.locator('.main-nav a[href="#trayectoria"]')).toHaveText('Track record');
     await page.locator('[data-language="es"]').click();
     await expect(milestones.locator('.milestone-period').nth(3)).toHaveText('Desde 2025');
@@ -278,6 +289,8 @@ test.describe('movimiento reducido', () => {
     expect(transform).toBe('none');
     await page.locator('.world-map').scrollIntoViewIfNeeded();
     await expect(page.locator('.world-map')).not.toHaveClass(/is-live/);
+    await page.locator('.journey-chart').scrollIntoViewIfNeeded();
+    await expect(page.locator('.journey-chart')).not.toHaveClass(/is-live/);
   });
 });
 

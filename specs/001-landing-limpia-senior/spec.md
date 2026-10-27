@@ -16,6 +16,7 @@
 - Q: ¿Cuántas cifras tiene la banda principal? → A: 4 (experiencias, organizaciones, países y sectores).
 - Q: ¿Cuántos proyectos se destacan? → A: 6, uno por sector principal.
 - Petición de Andrés (2026-10-26): sustituir las etiquetas de países por un mapa global estilizado y dinámico con puntos vivos (FR-006b, T018). También retirar Go de las capacidades.
+- Timeline (2026-10-27): Andrés elige carriles proporcionales frente a una línea ligada al scroll o un selector por año (FR-014b, T019).
 - Objetivos de texto (2026-10-27): Andrés los sube a 1.300 en total y 1.100 visibles, porque la trayectoria, Belcorp y el pipeline intacto añaden texto que quiere conservar.
 - Primeros años (2026-10-27): hito 2005–2012 en Pragma SA, Assist Consultores y Nexos Software (FR-014).
 - Corrección de medida (2026-10-26, T002): la línea base de 2.340 palabras contaba también atributos y paneles ocultos con otro método. Medido con el test de presupuesto: 1.808 en total y 1.153 visibles. Los objetivos de FR-001 y SC-001 se ajustan a esa medida.
@@ -146,6 +147,7 @@ El visitante interesado puede escribir a `andres.mejia@tekhos.com` o conectar en
 
 - **FR-013**: La página MUST incluir el liderazgo de equipos de hasta 12 personas como Team Leader y Architecture Lead.
 - **FR-014**: La página MUST incluir los primeros años (2005–2012: de desarrollador full-stack a Team Leader y Software Architect en Pragma SA, Assist Consultores y Nexos Software, en Colombia) y la trayectoria empresarial: fundador y CTO de Team Cloud (Colombia, 2012–2021, vendida en 2021) y fundador y CEO de Tekhos (en construcción), presentada como continuación de la visión de Team Cloud.
+- **FR-014b**: La trayectoria MUST mostrarse en carriles proporcionales sobre un eje de años real (2005 hasta hoy), con la duración y los solapes de cada etapa visibles, barras que crecen al entrar en pantalla y un marcador "hoy" vivo; sin JS el texto de cada etapa es íntegro y con movimiento reducido nada se anima.
 - **FR-015**: La página MUST incluir los idiomas: "Spanish (native) · English (professional working proficiency)" y su equivalente en español.
 - **FR-016**: La página MUST destacar las habilidades que generan impacto en los proyectos (proactividad, decisiones explícitas, acompañamiento hasta producción, transferencia de conocimiento) sin adjetivos sin respaldo.
 
